@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAnnouncementTable extends Migration
+class CreateSemestersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,10 @@ class CreateAnnouncementTable extends Migration
      */
     public function up()
     {
-        Schema::create('announcement', function (Blueprint $table) {
+        Schema::create('semesters', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->text('content');
-            $table->unsignedBigInteger('class_id');
-            $table->foreign('class_id')->references('id')->on('class');
+            $table->integer('year')->default(2022);
+            $table->boolean('isEarlyPeriod');
             $table->timestamps();
         });
     }
@@ -30,6 +28,6 @@ class CreateAnnouncementTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('announcement');
+        Schema::dropIfExists('semesters');
     }
 }

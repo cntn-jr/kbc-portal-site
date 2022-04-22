@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBelongClassTable extends Migration
+class CreateSchedulesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateBelongClassTable extends Migration
      */
     public function up()
     {
-        Schema::create('belong_class', function (Blueprint $table) {
+        Schema::create('schedules', function (Blueprint $table) {
             $table->id();
+            $table->date('scheduledDate');
+            $table->text('detail');
             $table->unsignedBigInteger('class_id');
-            $table->foreign('class_id')->references('id')->on('class');
-            $table->unsignedBigInteger('student_id');
-            $table->foreign('student_id')->references('id')->on('student');
+            $table->foreign('class_id')->references('id')->on('classes');
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ class CreateBelongClassTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('belong_class');
+        Schema::dropIfExists('schedules');
     }
 }
