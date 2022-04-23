@@ -17,8 +17,8 @@ class CreateCurriculaTable extends Migration
             $table->id();
             $table->integer('dayOfTheWeek');
             $table->integer('period');
-            $table->unsignedBigInteger('class_id');
-            $table->foreign('class_id')->references('id')->on('classes');
+            // $table->unsignedBigInteger('class_id');
+            // $table->foreign('class_id')->references('id')->on('classes');
             $table->unsignedBigInteger('lesson_id');
             $table->foreign('lesson_id')->references('id')->on('lessons');
             $table->timestamps();
