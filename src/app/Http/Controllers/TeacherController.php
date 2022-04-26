@@ -15,7 +15,7 @@ class TeacherController extends Controller
 
     public function manage_teachers(){}
 
-    public function delete($teacher_id){}
+    public function destroy($teacher_id){}
 
 
     //教師画面のコントローラー

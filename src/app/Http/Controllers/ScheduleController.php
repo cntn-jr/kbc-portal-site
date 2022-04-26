@@ -12,7 +12,7 @@ class ScheduleController extends Controller
 
     public function store($class_id){}
 
-    public function edit($class_id, $schedule_id){}
+    // public function edit($class_id, $schedule_id){}
 
     public function update($class_id, $schedule_id){}
 

@@ -20,6 +20,8 @@ class SemesterController extends Controller
 
     public function update($semester_id){}
 
+    public function destroy($semester_id){}
+
 
     //教師コントローラー
 

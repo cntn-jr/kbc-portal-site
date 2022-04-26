@@ -12,16 +12,16 @@ class LessonController extends Controller
     public function show_lessons_at_teacher($class_id){}
 
     //授業追加画面
-    public function create_lesson($class_id){}
+    public function create($class_id){}
 
     //授業保存処理
-    public function store_lesson($class_id){}
+    public function store($class_id){}
 
     //授業編集画面
-    public function edit_lesson($class_id, $lesson_id){}
+    public function edit($class_id, $lesson_id){}
 
     //授業更新処理
-    public function update_lesson($class_id, $lesson_id){}
+    public function update($class_id, $lesson_id){}
 
 
     //生徒コントローラー
