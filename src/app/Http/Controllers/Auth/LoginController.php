@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Administrator;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -36,5 +39,64 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+        $this->middleware('guest:admin')->except('logout');
+        $this->middleware('guest:teacher')->except('logout');
+        $this->middleware('guest:student')->except('logout');
     }
+
+    //管理者ログインフォーム
+    public function adminLoginForm(){
+        return view('admin.login', ['authgroup' => 'admin']);
+    }
+
+    public function adminAuthentication(Request $request){
+        //認証機能
+        if(checkPasswordAdmin($request->password1, $request->password2)){
+            $request->session()->regenerate();
+
+            Auth::guard('admin')->login(Administrator::first());
+
+            return redirect()->route('semester.select_at_admin');
+        }
+        return back()->withErrors([
+            'email' => 'The provided credentials do not match our records.',
+        ]);
+    }
+
+
+    // 教師ログインフォーム
+    public function teacherLoginForm(){
+        return view('teacher.login');
+    }
+
+    public function teacherAuthentication(Request $request){
+        //認証機能
+        if(Auth::guard('teacher')->attempt(['email'=>$request->email, 'password'=>$request->password])){
+            $request->session()->regenerate();
+
+            return redirect()->route('semester.select_at_teacher');
+        }
+        return back()->withErrors([
+            'email' => 'The provided credentials do not match our records.',
+        ]);
+    }
+
+
+    // 生徒ログインフォーム
+    public function studentLoginForm(){
+        return view('student.login');
+    }
+
+    public function studentAuthentication(Request $request){
+        //認証機能
+        if(Auth::guard('student')->attempt(['email'=>$request->email, 'password'=>$request->password])){
+            $request->session()->regenerate();
+
+            return redirect()->route('semester.select_at_student');
+        }
+        return back()->withErrors([
+            'email' => 'The provided credentials do not match our records.',
+        ]);
+    }
+
 }

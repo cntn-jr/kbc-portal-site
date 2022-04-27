@@ -1,5 +1,11 @@
 <?php
 
+use App\Models\Administrator;
+use App\Models\Student;
+use App\Models\Teacher;
+use Illuminate\Support\Facades\App;
+
+
 return [
 
     /*
@@ -40,6 +46,21 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'admins',
+        ],
+
+        'teacher' => [
+            'driver' => 'session',
+            'provider' => 'teachers',
+        ],
+
+        'student' => [
+            'driver' => 'session',
+            'provider' => 'students',
+        ],
     ],
 
     /*
@@ -69,6 +90,21 @@ return [
         //     'driver' => 'database',
         //     'table' => 'users',
         // ],
+
+        'admins' => [
+            'driver' => 'eloquent',
+            'model' => Administrator::class,
+        ],
+
+        'teachers' => [
+            'driver' => 'eloquent',
+            'model' => Teacher::class,
+        ],
+
+        'students' => [
+            'driver' => 'eloquent',
+            'model' => Student::class,
+        ],
     ],
 
     /*

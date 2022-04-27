@@ -8,7 +8,9 @@ class SemesterController extends Controller
 {
     //管理者コントローラー
 
-    public function select_at_admin(){}
+    public function select_at_admin(){
+        return view('admin.select_semester');
+    }
 
     public function show_at_admin(){}
 
@@ -25,14 +27,19 @@ class SemesterController extends Controller
 
     //教師コントローラー
 
-    public function select_at_teacher(){}
+    public function select_at_teacher(){
+        return view('teacher.select_semester');
+    }
 
     public function show_at_teacher(){}
 
 
     //生徒コントローラー
 
-    public function select_at_student(){}
+    public function select_at_student(){
+        return view('student.select_semester');
+
+    }
 
     public function show_at_student(){}
 }
