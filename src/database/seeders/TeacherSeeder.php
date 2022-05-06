@@ -16,8 +16,15 @@ class TeacherSeeder extends Seeder
     public function run()
     {
         DB::table('teachers')->insert([
+            'id' => 1,
             'name' => '那須 道生',
             'email' => 'm-nasu@kawahara.ac.jp',
+            'password' => Hash::make('password'),
+        ]);
+        DB::table('teachers')->insert([
+            'id' => 2,
+            'name' => '森 敏',
+            'email' => 's-mori@kawahara.ac.jp',
             'password' => Hash::make('password'),
         ]);
     }
