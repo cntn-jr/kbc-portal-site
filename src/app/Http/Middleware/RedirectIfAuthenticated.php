@@ -22,9 +22,18 @@ class RedirectIfAuthenticated
         $guards = empty($guards) ? [null] : $guards;
 
         foreach ($guards as $guard) {
-            if (Auth::guard($guard)->check()) {
+            if ($guard == "admin" && Auth::guard($guard)->check())
+                return redirect()->route('semester.select_at_admin');
+
+            else if ($guard == "teacher" && Auth::guard($guard)->check())
+                return redirect()->route('semester.select_at_teacher');
+
+            else if ($guard == "student" && Auth::guard($guard)->check())
+                return redirect()->route('semester.select_at_student');
+
+            if (Auth::guard($guard)->check())
                 return redirect(RouteServiceProvider::HOME);
-            }
+
         }
 
         return $next($request);

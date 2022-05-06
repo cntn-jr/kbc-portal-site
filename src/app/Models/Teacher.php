@@ -13,6 +13,12 @@ class Teacher extends Authenticatable
 
     protected $table = 'teachers';
 
+    const MODEL_TYPE = 'teacher';
+
+    public function getModelType(){
+        return '教師';
+    }
+
     public function isTeacher(){
         return true;
     }

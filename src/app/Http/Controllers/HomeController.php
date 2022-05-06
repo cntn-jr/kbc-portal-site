@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Administrator;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -11,10 +13,7 @@ class HomeController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+    public function __construct(){}
 
     /**
      * Show the application dashboard.
@@ -23,6 +22,17 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        switch (Auth::user()->MODEL_TYPE){
+            case 'admin':
+                return redirect()->route('semester.select_at_admin');
+                break;
+            case 'teacher':
+                return redirect()->route('semester.select_at_teacher');
+                break;
+            case 'student':
+                return redirect()->route('semester.select_at_student');
+                break;
+        }
+        return view('auth.login');
     }
 }

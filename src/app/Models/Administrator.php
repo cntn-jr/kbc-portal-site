@@ -14,4 +14,10 @@ class Administrator extends Authenticatable
 
     protected $table = 'administrators';
 
+    const MODEL_TYPE = 'admin';
+
+    public function getModelType(){
+        return '管理者';
+    }
+
 }
