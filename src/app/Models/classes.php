@@ -44,7 +44,16 @@ class Classes extends Model
 
     //指定した学期に存在するクラス
     public function getClasses($semester_id){
-        return Classes::where('semester_id', $semester_id)
+        $classes = DB::table('classes')
+            ->select('classes.name as class_name', 'teachers.name as teacher_name', 'teachers.email')
+            ->join('teachers', 'classes.teacher_id', '=' ,'teachers.id')
+            ->where('classes.semester_id', $semester_id)
             ->get();
+        $class_ary = [];
+        foreach($classes as $class){
+            array_push($class_ary, $class);
+        }
+        $class_ary = array_chunk($class_ary, 3);
+        return $class_ary;
     }
 }

@@ -29,5 +29,15 @@ class SemesterSeeder extends Seeder
             'year' => 2021,
             'isEarlyPeriod' => true,
         ]);
+        DB::table('semesters')->insert([
+            'id' => 4,
+            'year' => 2020,
+            'isEarlyPeriod' => false,
+        ]);
+        DB::table('semesters')->insert([
+            'id' => 5,
+            'year' => 2020,
+            'isEarlyPeriod' => true,
+        ]);
     }
 }
