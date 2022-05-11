@@ -2,17 +2,46 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Classes;
+use App\Models\Semester;
+use App\Models\Teacher;
 use Illuminate\Http\Request;
 
 class ClassesController extends Controller
 {
     //管理者コントローラー
 
-    public function create($semester_id){}
+    public function create($semester_id){
+        $teacher_model = new Teacher();
+        $teachers = $teacher_model->getListOfTeachers();
+        $semester = Semester::find($semester_id);
+        $semester_name = $semester->getSentence();
+        return view('admin.create_class')->with([
+            'teachers' => $teachers,
+            'semester_id' => $semester_id,
+            'semester_name' => $semester_name
+        ]);
+    }
 
-    public function store($semester_id){}
+    public function store(Request $request ,$semester_id){
+        $request->validate([
+            'class_name' => 'required|max:63',
+            'teacher_id' => 'required|integer'
+        ]);
+        $class = Classes::create([
+            'name' => $request->class_name,
+            'teacher_id' => $request->teacher_id,
+            'semester_id' => $semester_id,
+        ]);
+        $class->save();
+        return redirect()->route('semester.show_at_admin', $semester_id);
+    }
 
-    public function destroy($semester_id, $class_id){}
+    public function destroy($semester_id, $class_id){
+        $class = Classes::find($class_id);
+        $class->delete();
+        return redirect()->route('semester.show_at_admin', $semester_id);
+    }
 
 
     //教師コントローラー

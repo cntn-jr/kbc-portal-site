@@ -21,7 +21,7 @@ class SemesterController extends Controller
         $classes = $class->getClasses($semester_id);
         $semester = Semester::find($semester_id);
         $semester_name = $semester->getSentence();
-        return view('admin.show_semester')->with(['classes' => $classes, 'semester_name' => $semester_name]);
+        return view('admin.show_semester')->with(['classes' => $classes, 'semester_name' => $semester_name, 'semester_id' => $semester_id]);
     }
 
     public function create(){}

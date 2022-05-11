@@ -53,6 +53,7 @@ Route::prefix('/kbc_administrator/semester')->middleware('auth:admin')->group(fu
     Route::delete('/{semester_id}/destroy', [SemesterController::class, 'destroy'])->name('semester.destroy');
     Route::get('/{semester_id}/class/create', [ClassesController::class, 'create'])->name('class.create');
     Route::post('/{semester_id}/class/store', [ClassesController::class, 'store'])->name('class.store');
+    Route::post('/{semester_id}/class/{class_id}/destroy', [ClassesController::class, 'destroy'])->name('class.destroy');
 });
 
 Route::prefix('/kbc_administrator/teachers')->middleware('auth:admin')->group(function(){

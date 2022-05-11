@@ -12,6 +12,8 @@ class Classes extends Model
 
     protected $table = 'classes';
 
+    protected $fillable = ['name', 'teacher_id', 'semester_id'];
+
     //指定した生徒がそのクラスに所属しているかどうか
     //classes::find($id)->isBlongClass($student_id)
     public function isBlongClass($student_id){
@@ -45,7 +47,7 @@ class Classes extends Model
     //指定した学期に存在するクラス
     public function getClasses($semester_id){
         $classes = DB::table('classes')
-            ->select('classes.name as class_name', 'teachers.name as teacher_name', 'teachers.email')
+            ->select('classes.id as class_id', 'classes.name as class_name', 'teachers.name as teacher_name', 'teachers.email')
             ->join('teachers', 'classes.teacher_id', '=' ,'teachers.id')
             ->where('classes.semester_id', $semester_id)
             ->get();
