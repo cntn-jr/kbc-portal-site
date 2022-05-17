@@ -11,7 +11,7 @@ class Semester extends Model
 
     protected $table = 'semesters';
 
-    // protected $fiilable = ['id', 'year', 'isEarlyPeriod', 'created_at'];
+    protected $fillable = ['year', 'isEarlyPeriod'];
 
     public function getSemesters(){
         return $this->orderBy('year', 'desc')
@@ -25,4 +25,5 @@ class Semester extends Model
         else
             return $this->year.'年度'.' '.'後期';
     }
+
 }

@@ -45,9 +45,9 @@ Route::post('/kbc_student/authenticate', [LoginController::class, 'studentAuthen
 //管理者のルーティング
 Route::prefix('/kbc_administrator/semester')->middleware('auth:admin')->group(function(){
     Route::get('/', [SemesterController::class, 'select_at_admin'])->name('semester.select_at_admin');
-    Route::get('/{semester_id}', [SemesterController::class, 'show_at_admin'])->name('semester.show_at_admin');
     Route::get('/create', [SemesterController::class, 'create'])->name('semester.create');
     Route::post('/store', [SemesterController::class, 'store'])->name('semester.store');
+    Route::get('/{semester_id}', [SemesterController::class, 'show_at_admin'])->name('semester.show_at_admin');
     Route::get('/{semester_id}/edit', [SemesterController::class, 'edit'])->name('semester.edit');
     Route::put('/{semester_id}/update', [SemesterController::class, 'update'])->name('semester.update');
     Route::delete('/{semester_id}/destroy', [SemesterController::class, 'destroy'])->name('semester.destroy');

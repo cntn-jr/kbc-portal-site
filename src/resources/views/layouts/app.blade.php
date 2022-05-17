@@ -51,6 +51,11 @@
 
                         @else
                             @if(Auth::user()->getModelType() == '管理者')
+                                <li class="nuv-item mr-3">
+                                    <a id="navbarDropdown" class="nav-link" href="{{ route('semester.create') }}" role="button"  aria-haspopup="true" aria-expanded="false" v-pre>
+                                        学期追加
+                                    </a>
+                                </li>
                                 <li class="nuv-item mx-5">
                                     <a id="navbarDropdown" class="nav-link" href="{{ route('teacher.manage') }}" role="button"  aria-haspopup="true" aria-expanded="false" v-pre>
                                         教師アカウント一覧
