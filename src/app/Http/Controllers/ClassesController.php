@@ -47,7 +47,13 @@ class ClassesController extends Controller
     //教師コントローラー
 
     //クラス一覧画面
-    public function select_class($semester_id){}
+    public function select_class($semester_id){
+        $class = new Classes();
+        $classes = $class->getClasses($semester_id);
+        $semester = Semester::find($semester_id);
+        $semester_name = $semester->getSentence();
+        return view('teacher.select_class')->with(['classes' => $classes, 'semester_name' => $semester_name, 'semester_id' => $semester_id]);
+    }
 
     //クラス画面
     public function show_at_teacher($class_id){}

@@ -61,6 +61,21 @@
                                         教師アカウント一覧
                                     </a>
                                 </li>
+                            @elseif(Auth::user()->getModelType() == '教師')
+                                @php
+                                    $semester_model = new \App\Models\Semester;
+                                    $semesters_app = $semester_model->getSemesters();
+                                @endphp
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    年度
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-end mx-5" aria-labelledby="navbarDropdown">
+                                    @foreach($semesters_app as $semester_app)
+                                        <a class="dropdown-item" href="{{ route('class.select', $semester_app->id) }}">
+                                            {{ $semester_app->getSentence() }}
+                                        </a>
+                                    @endforeach
+                                </div>
                             @endif
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

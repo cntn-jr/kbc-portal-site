@@ -50,7 +50,9 @@ class Classes extends Model
             ->select('classes.id as class_id', 'classes.name as class_name', 'teachers.name as teacher_name', 'teachers.email')
             ->join('teachers', 'classes.teacher_id', '=' ,'teachers.id')
             ->where('classes.semester_id', $semester_id)
+            ->orderBy('class_name', 'asc')
             ->get();
+        // 配列に入れ直す
         $class_ary = [];
         foreach($classes as $class){
             array_push($class_ary, $class);

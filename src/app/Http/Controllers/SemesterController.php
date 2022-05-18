@@ -7,6 +7,7 @@ use App\Models\Semester;
 use Carbon\Carbon;
 use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class SemesterController extends Controller
 {
@@ -14,7 +15,7 @@ class SemesterController extends Controller
 
     public function select_at_admin(){
         $semester = new Semester();
-        $semesters = $semester->getSemesters();
+        $semesters = $semester->getSemestersPage5();
         return view('admin.select_semester')->with('semesters', $semesters);
     }
 
@@ -62,7 +63,6 @@ class SemesterController extends Controller
 
 
     //教師コントローラー
-
     public function select_at_teacher(){
         return view('teacher.select_semester');
     }

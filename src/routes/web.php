@@ -126,7 +126,7 @@ Route::prefix('/kbc_teacher')->middleware('auth:teacher')->group(function(){
     //年度の切り替え
     Route::get('/select_semester', [SemesterController::class, 'select_at_teacher'])->name('semester.select_at_teacher');
     //クラスの選択
-    Route::get('/semester/{$semester_id}/select_class', [ClassesController::class, 'select_class'])->name('class.select');
+    Route::get('/semester/{semester_id}/select_class', [ClassesController::class, 'select_class'])->name('class.select');
 
     Route::get('/profile', [TeacherController::class, 'edit_profile'])->name('teacher.edit_profile');
     Route::put('/profile/update', [TeacherController::class, 'update_profile'])->name('teacher.update_profile');
