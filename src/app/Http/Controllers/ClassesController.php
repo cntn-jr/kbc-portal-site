@@ -56,7 +56,10 @@ class ClassesController extends Controller
     }
 
     //クラス画面
-    public function show_at_teacher($class_id){}
+    public function show_at_teacher($class_id){
+        $class = Classes::find($class_id);
+        return view('teacher.show_class');
+    }
 
     //クラスに生徒を追加する（所属させる）
     public function add_students($class_id){}

@@ -27,5 +27,35 @@ class TeacherSeeder extends Seeder
             'email' => 's-mori@kawahara.ac.jp',
             'password' => Hash::make('password'),
         ]);
+        DB::table('teachers')->insert([
+            'id' => 3,
+            'name' => '小西 弘恭',
+            'email' => 'h-konishi@kawahara.ac.jp',
+            'password' => Hash::make('password'),
+        ]);
+        DB::table('teachers')->insert([
+            'id' => 4,
+            'name' => '林 優子',
+            'email' => 'y-hayashi@kawahara.ac.jp',
+            'password' => Hash::make('password'),
+        ]);
+        DB::table('teachers')->insert([
+            'id' => 5,
+            'name' => '江見 圭司',
+            'email' => 'k-emi@kawahara.ac.jp',
+            'password' => Hash::make('password'),
+        ]);
+        DB::table('teachers')->insert([
+            'id' => 6,
+            'name' => '花山 薫',
+            'email' => 'm-yamahana@kawahara.ac.jp',
+            'password' => Hash::make('password'),
+        ]);
+        DB::table('teachers')->insert([
+            'id' => 7,
+            'name' => '山下 秋芳',
+            'email' => 'a-yamashita@kawahara.ac.jp',
+            'password' => Hash::make('password'),
+        ]);
     }
 }
