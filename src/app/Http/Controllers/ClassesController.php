@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Classes;
+use App\Models\Curriculum;
+use App\Models\Lesson;
 use App\Models\Semester;
 use App\Models\Teacher;
 use Illuminate\Http\Request;
@@ -58,7 +60,17 @@ class ClassesController extends Controller
     //クラス画面
     public function show_at_teacher($class_id){
         $class = Classes::find($class_id);
-        return view('teacher.show_class');
+        $curriculum_model = new Curriculum();
+        $curriculum = $curriculum_model->getCurriculum($class_id);
+        $dayOfTheWeeks = ['月', '火', '水', '木', '金',];
+        $semester_model = new Semester();
+        $semester_name = $semester_model->getSentenceOnClass($class_id);
+        return view('teacher.show_class')->with([
+            'curriculum' => $curriculum,
+            'class' => $class,
+            'dayOfTheWeeks' => $dayOfTheWeeks,
+            'semester_name' => $semester_name,
+        ]);
     }
 
     //クラスに生徒を追加する（所属させる）
@@ -70,7 +82,23 @@ class ClassesController extends Controller
     public function leave_students($class_id){}
 
     //クラスの編集（クラス名やカリキュラムなど）
-    public function edit($class_id){}
+    public function edit($class_id){
+        $class = Classes::find($class_id);
+        $curriculum_model = new Curriculum();
+        $curriculum = $curriculum_model->getCurriculum($class_id);
+        $dayOfTheWeeks = ['月', '火', '水', '木', '金',];
+        $semester_model = new Semester();
+        $semester_name = $semester_model->getSentenceOnClass($class_id);
+        $lesson_model = new Lesson();
+        $class_lessons = $lesson_model->getLessons($class_id);
+        return view('teacher.edit_class')->with([
+            'curriculum' => $curriculum,
+            'class' => $class,
+            'dayOfTheWeeks' => $dayOfTheWeeks,
+            'semester_name' => $semester_name,
+            'class_lessons' => $class_lessons,
+        ]);
+    }
 
     //クラス名の更新
     public function update($class_id){}

@@ -34,6 +34,12 @@ class Semester extends Model
             return $this->year.'年度'.' '.'後期';
     }
 
+    public function getSentenceOnClass($class_id){
+        $class = Classes::find($class_id);
+        $semester = Semester::find($class->semester_id);
+        return $semester->getSentence();
+    }
+
     //最新の学期を返す
     public function getLastSemester(){
         return Semester::orderBy('year', 'desc')

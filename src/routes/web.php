@@ -80,7 +80,7 @@ Route::prefix('/kbc_teacher/class/{class_id}/curriculum')->middleware('auth:teac
     //カリキュラム（１コマ）の更新
     Route::put('/{curriculum_id}/update', [CurriculumController::class, 'update'])->name('curriculum.update');
     //カリキュラム（１コマ）の削除
-    Route::delete('/curriculum_id/destroy', [CurriculumController::class, 'destroy'])->name('curriculum.destroy');
+    Route::delete('/{curriculum_id}/destroy', [CurriculumController::class, 'destroy'])->name('curriculum.destroy');
 
 });
 

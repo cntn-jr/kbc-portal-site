@@ -20,10 +20,10 @@ class Lesson extends Model
     }
 
     public function getLessons($class_id){
-        DB::table('lessons')
-            ->select('name', 'outline', 'teacher_id')
-            ->join('curriculums', 'curriculums.lesson_id', '=', 'lessons.id')
-            ->where('curriculums.class_id', $class_id)
+        return DB::table('lessons')
+            ->select('lessons.id as lesson_id', 'lessons.name as lesson_name', 'lessons.outline', 'teachers.name as teacher_name', 'teachers.email')
+            ->join('teachers', 'teachers.id', '=', 'lessons.teacher_id')
+            ->where('lessons.class_id', $class_id)
             ->get();
     }
 

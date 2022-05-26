@@ -21,7 +21,7 @@ class Curriculum extends Model
             [1=>'', 2=>'', 3=>'', 4=>''],//金曜日
         ];
         $lessons_class = DB::table('lessons')
-            ->select('lessons.name', 'lessons.outline', 'curriculums.dayOfTheWeek', 'curriculums.period', 'teachers.name', 'teachers.email')
+            ->select('lessons.id as lesson_id', 'lessons.name as lesson_name', 'lessons.outline', 'curriculums.dayOfTheWeek', 'curriculums.period', 'teachers.name as teacher_name', 'teachers.email', 'curriculums.id as curriculum_id')
             ->join('curriculums', 'curriculums.lesson_id', '=', 'lessons.id')
             ->join('teachers', 'teachers.id', '=', 'lessons.teacher_id')
             ->where('lessons.class_id', $class_id)
