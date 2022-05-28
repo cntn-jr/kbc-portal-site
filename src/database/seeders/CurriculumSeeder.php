@@ -18,71 +18,85 @@ class CurriculumSeeder extends Seeder
             'dayOfTheWeek' => 0,#月曜日
             'period' => 1,
             'lesson_id' => 1,
+            'class_id' => 1,
         ]);
         DB::table('curriculums')->insert([
             'dayOfTheWeek' => 0,
             'period' => 2,
             'lesson_id' => 1,
+            'class_id' => 1,
         ]);
         DB::table('curriculums')->insert([
             'dayOfTheWeek' => 1,#火曜日
             'period' => 1,
             'lesson_id' => 2,
+            'class_id' => 1,
         ]);
         DB::table('curriculums')->insert([
             'dayOfTheWeek' => 1,
             'period' => 2,
             'lesson_id' => 2,
+            'class_id' => 1,
         ]);
         DB::table('curriculums')->insert([
             'dayOfTheWeek' => 1,
             'period' => 3,
             'lesson_id' => 3,
+            'class_id' => 1,
         ]);
         DB::table('curriculums')->insert([
             'dayOfTheWeek' => 2,#水曜日
             'period' => 1,
             'lesson_id' => 2,
+            'class_id' => 1,
         ]);
         DB::table('curriculums')->insert([
             'dayOfTheWeek' => 2,#水曜日
             'period' => 2,
             'lesson_id' => 2,
+            'class_id' => 1,
         ]);
         DB::table('curriculums')->insert([
             'dayOfTheWeek' => 2,#水曜日
             'period' => 3,
             'lesson_id' => 4,
+            'class_id' => 1,
         ]);
         DB::table('curriculums')->insert([
             'dayOfTheWeek' => 3,#木曜日
             'period' => 1,
             'lesson_id' => 5,
+            'class_id' => 1,
         ]);
         DB::table('curriculums')->insert([
             'dayOfTheWeek' => 3,#木曜日
             'period' => 2,
             'lesson_id' => 5,
+            'class_id' => 1,
         ]);
         DB::table('curriculums')->insert([
             'dayOfTheWeek' => 3,#木曜日
             'period' => 3,
             'lesson_id' => 6,
+            'class_id' => 1,
         ]);
         DB::table('curriculums')->insert([
             'dayOfTheWeek' => 4,#金曜日
             'period' => 1,
             'lesson_id' => 6,
+            'class_id' => 1,
         ]);
         DB::table('curriculums')->insert([
             'dayOfTheWeek' => 4,#金曜日
             'period' => 2,
             'lesson_id' => 6,
+            'class_id' => 1,
         ]);
         DB::table('curriculums')->insert([
             'dayOfTheWeek' => 4,#金曜日
             'period' => 3,
             'lesson_id' => 6,
+            'class_id' => 1,
         ]);
     }
 }

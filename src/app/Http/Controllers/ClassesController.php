@@ -101,7 +101,15 @@ class ClassesController extends Controller
     }
 
     //クラス名の更新
-    public function update($class_id){}
+    public function update($class_id, Request $request){
+        $class = Classes::find($class_id);
+        $request->validate([
+            'class_name' => 'required|max:63'
+        ]);
+        $class->name = $request->class_name;
+        $class->save();
+        return redirect()->route('class.edit', $class_id);
+    }
 
 
     //生徒コントローラー

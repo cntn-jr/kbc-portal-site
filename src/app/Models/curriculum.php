@@ -12,6 +12,8 @@ class Curriculum extends Model
 
     protected $table = 'curriculums';
 
+    protected $fillable = ['lesson_id', 'dayOfTheWeek', 'period', 'class_id'];
+
     public function getCurriculum($class_id){
         $curriculum_week = [
             [1=>'', 2=>'', 3=>'', 4=>''],//月曜日
