@@ -52,12 +52,6 @@ class Classes extends Model
             ->where('classes.semester_id', $semester_id)
             ->orderBy('class_name', 'asc')
             ->get();
-        // 配列に入れ直す
-        $class_ary = [];
-        foreach($classes as $class){
-            array_push($class_ary, $class);
-        }
-        $class_ary = array_chunk($class_ary, 3);
-        return $class_ary;
+        return $classes;
     }
 }

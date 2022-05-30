@@ -52,6 +52,7 @@ class ClassesController extends Controller
     public function select_class($semester_id){
         $class = new Classes();
         $classes = $class->getClasses($semester_id);
+        $classes = arrayChunkObject($classes, 3);
         $semester = Semester::find($semester_id);
         $semester_name = $semester->getSentence();
         return view('teacher.select_class')->with(['classes' => $classes, 'semester_name' => $semester_name, 'semester_id' => $semester_id]);

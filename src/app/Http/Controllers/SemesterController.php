@@ -22,6 +22,7 @@ class SemesterController extends Controller
     public function show_at_admin($semester_id){
         $class = new Classes();
         $classes = $class->getClasses($semester_id);
+        $classes = arrayChunkObject($classes, 3);
         $semester = Semester::find($semester_id);
         $semester_name = $semester->getSentence();
         return view('admin.show_semester')->with(['classes' => $classes, 'semester_name' => $semester_name, 'semester_id' => $semester_id]);

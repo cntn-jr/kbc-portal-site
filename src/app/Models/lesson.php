@@ -12,6 +12,8 @@ class Lesson extends Model
 
     protected $table = 'lessons';
 
+    protected $fillable = ['name', 'outline', 'teacher_id', 'class_id'];
+
     //その授業の担当の教師の情報
     public function getTacherInCharge(){
         $lesson = Lesson::find($this->id);
@@ -21,7 +23,7 @@ class Lesson extends Model
 
     public function getLessons($class_id){
         return DB::table('lessons')
-            ->select('lessons.id as lesson_id', 'lessons.name as lesson_name', 'lessons.outline', 'teachers.name as teacher_name', 'teachers.email')
+            ->select('lessons.id as lesson_id', 'lessons.name as lesson_name', 'lessons.outline', 'teachers.name as teacher_name', 'teachers.email', 'teachers.id as teacher_id')
             ->join('teachers', 'teachers.id', '=', 'lessons.teacher_id')
             ->where('lessons.class_id', $class_id)
             ->get();

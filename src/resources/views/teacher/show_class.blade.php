@@ -28,8 +28,8 @@
                             @endforeach
                         </div>
                     @endforeach
-                    </div>
                 </div>
+                <a class="btn btn-outline-secondary my-3" href="{{ route('class.show_lessons', $class->id) }}" role="button">授業一覧</a>
             </div>
         </div>
     </div>
