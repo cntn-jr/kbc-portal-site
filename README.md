@@ -1,3 +1,1 @@
 # kbc-portal-site
-
-jiraのテストです。
