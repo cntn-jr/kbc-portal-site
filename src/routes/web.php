@@ -115,7 +115,7 @@ Route::prefix('/kbc_teacher/class/{class_id}/schedule')->middleware('auth:teache
 Route::prefix('/kbc_teacher/class/{class_id}/student')->middleware('auth:teacher')->group(function(){
     //生徒アカウントの作成
     Route::get('/create_account', [StudentController::class, 'create_account'])->name('student.create_account');
-    Route::post('/store_account', [StudentController::class, 'store_account'])->name('student.create_account');
+    Route::post('/store_account', [StudentController::class, 'store_account'])->name('student.store_account');
     //生徒をクラスに追加
     Route::get('/add_students', [ClassesController::class, 'add_students'])->name('class.add_students');
     Route::post('/store_add_students', [ClassesController::class, 'store_add_students'])->name('class.store_add_students');
