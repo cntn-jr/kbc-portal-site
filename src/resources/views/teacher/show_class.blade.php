@@ -30,6 +30,7 @@
                     @endforeach
                 </div>
                 <a class="btn btn-outline-secondary my-3" href="{{ route('class.show_lessons', $class->id) }}" role="button">授業一覧</a>
+                <a class="btn btn-outline-secondary my-3" href="{{ route('student.create_account', $class->id) }}" role="button">生徒登録</a>
             </div>
         </div>
     </div>
