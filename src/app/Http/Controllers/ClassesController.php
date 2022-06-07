@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Belong_class;
 use App\Models\Classes;
 use App\Models\Curriculum;
 use App\Models\Lesson;
 use App\Models\Semester;
+use App\Models\Student;
 use App\Models\Teacher;
 use Illuminate\Http\Request;
-
 class ClassesController extends Controller
 {
     //管理者コントローラー
@@ -75,12 +76,75 @@ class ClassesController extends Controller
     }
 
     //クラスに生徒を追加する（所属させる）
-    public function add_students($class_id){}
+    public function add_students($class_id, Request $request){
+        $class = Classes::find($class_id);
+        $semester_model = new Semester();
+        $semester_name = $semester_model->getSentenceOnClass($class_id);
+        $students = [];
+        $search_param = '';
+        if($request->search_param){
+            $search_param = $request->search_param;
+            $students = Student::where('email', 'LIKE', '%'.$search_param.'%')
+                ->get();
+        }
+        return view('teacher.search_students')->with([
+            'class' => $class,
+            'semester_name' => $semester_name,
+            'students' => $students,
+            'search_param' => $search_param,
+        ]);
+    }
 
-    public function store_add_students($class_id){}
+    public function store_add_students($class_id, Request $request){
+        $class = Classes::find($class_id);
+        $students = [];
+        foreach($request->all() as $index => $student_id){
+            if( preg_match('/^student_id[0-9]+$/', $index) ){
+                $request->validate([
+                    $index => ['required', 'integer',]
+                ]);
+                $belong_class = Belong_class::where('student_id', $student_id)
+                    ->where('class_id', $class_id)
+                    ->first();
+                // クラスと生徒が結びついていなければ
+                if(!$belong_class){
+                    array_push($students, $student_id);
+                }
+            }
+        }
+        $class->addStudents($students);
+        $semester_model = new Semester();
+        $semester_name = $semester_model->getSentenceOnClass($class_id);
+        $students = Student::whereIn('id', $students)->get();
+        return view('teacher.result_add_students')->with([
+            'semester_name' => $semester_name,
+            'class' => $class,
+            'students' => $students
+        ]);
+    }
 
     //生徒をクラスから開放する
-    public function leave_students($class_id){}
+    public function leave_student($class_id, $student_id){
+        $belong_class = Belong_class::where('class_id', $class_id)
+            ->where('student_id', $student_id)
+            ->first();
+        $belong_class->delete();
+        return redirect()->route('class.show_students', $class_id);
+    }
+
+    public function show_students($class_id){
+        $class = Classes::find($class_id);
+        $students = [];
+        $semester_model = new Semester();
+        $semester_name = $semester_model->getSentenceOnClass($class_id);
+        $student_model = new Student();
+        $students = $student_model->getStudentsOnClass($class_id);
+        return view('teacher.show_students')->with([
+            'semester_name' => $semester_name,
+            'class' => $class,
+            'students' => $students
+        ]);
+    }
 
     //クラスの編集（クラス名やカリキュラムなど）
     public function edit($class_id){

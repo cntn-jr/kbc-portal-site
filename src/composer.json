@@ -36,7 +36,8 @@
             "app/Http/OriginalFunction/Password.php",
             "app/Http/OriginalFunction/CreateRandomPassword.php",
             "app/Http/OriginalFunction/ArrayChunk.php",
-            "app/Http/OriginalFunction/ReadCsv.php"
+            "app/Http/OriginalFunction/ReadCsv.php",
+            "app/Http/OriginalFunction/OperationArray.php"
         ]
     },
     "scripts": {

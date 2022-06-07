@@ -12,12 +12,8 @@
                         <label class="" for="student_csv">CSVファイルを挿入してください</label>
                         <input type="file" name="student_csv" id="student_csv" class="form-control-file">
                     </div>
-                    <div class="form-group form-check my-5">
-                        <input type="checkbox" class="form-check-input" id="checkAddClass">
-                        <label class="form-check-label" for="checkAddClass">クラスへの登録も行う</label>
-                    </div>
                     <div class="form-group my-3">
-                        <button type="submit" class="btn btn-secondary">作成</button>
+                        <button type="submit" class="btn btn-secondary">アカウント作成</button>
                     </div>
                     @csrf
                 </form>

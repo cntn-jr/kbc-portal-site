@@ -15,7 +15,7 @@ class StudentController extends Controller
     public function create_account($class_id){
         $class = Classes::find($class_id);
         $semester_model = new Semester();
-        $semester_name = $semester_model->getSentence();
+        $semester_name = $semester_model->getSentenceOnClass($class_id);
         return view('teacher.register_student')->with([
             'class' => $class,
             'semester_name' => $semester_name,
@@ -29,6 +29,8 @@ class StudentController extends Controller
         if(!$student_model->validateStudents($students))
             return redirect()->route('student.create_account', $class_id);
 
+        $student_emails = [];
+
         foreach($students as $student){
             Student::create([
                 'name' => $student['1'],
@@ -36,11 +38,17 @@ class StudentController extends Controller
                 'attend_num' => $student['0'],
                 'password' => $student_model->createDefaultPassword($student['2']),
             ]);
+            array_push($student_emails, $student['2']);
         }
-
-        dd('stop');
-
-        return redirect()->route('class.add_students', $class_id);
+        $class = Classes::find($class_id);
+        $semester_model = new Semester();
+        $semester_name = $semester_model->getSentenceOnClass($class_id);
+        $students = Student::whereIn('email', $student_emails)->get();
+        return view('teacher.result_register_account')->with([
+            'semester_name' => $semester_name,
+            'class' => $class,
+            'students' => $students
+        ]);
     }
 
 

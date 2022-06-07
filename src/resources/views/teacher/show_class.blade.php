@@ -31,6 +31,8 @@
                 </div>
                 <a class="btn btn-outline-secondary my-3" href="{{ route('class.show_lessons', $class->id) }}" role="button">授業一覧</a>
                 <a class="btn btn-outline-secondary my-3" href="{{ route('student.create_account', $class->id) }}" role="button">生徒登録</a>
+                <a class="btn btn-outline-secondary my-3" href="{{ route('class.add_students', $class->id) }}" role="button">生徒をクラスに追加</a>
+                <a class="btn btn-outline-secondary my-3" href="{{ route('class.show_students', $class->id) }}" role="button">生徒一覧</a>
             </div>
         </div>
     </div>

@@ -54,4 +54,14 @@ class Classes extends Model
             ->get();
         return $classes;
     }
+
+    public function addStudents($students){
+        $class = Classes::find($this->id);
+        foreach($students as $student){
+            Belong_class::create([
+                'student_id' => $student,
+                'class_id' => $class->id,
+            ]);
+        }
+    }
 }

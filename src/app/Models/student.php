@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 
@@ -33,6 +34,14 @@ class Student extends Authenticatable
 
     public function getStudent($student_id){
         return Student::find($student_id);
+    }
+
+    public function getStudentsOnClass($class_id){
+        return DB::table('students')
+            ->select('students.id as student_id', 'name', 'email', 'attend_num')
+            ->join('belong_classes', 'belong_classes.student_id', '=', 'students.id')
+            ->where('class_id', $class_id)
+            ->get();
     }
 
     public function validateStudents($students){

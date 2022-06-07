@@ -119,7 +119,8 @@ Route::prefix('/kbc_teacher/class/{class_id}/student')->middleware('auth:teacher
     //生徒をクラスに追加
     Route::get('/add_students', [ClassesController::class, 'add_students'])->name('class.add_students');
     Route::post('/store_add_students', [ClassesController::class, 'store_add_students'])->name('class.store_add_students');
-    Route::delete('/leave_students', [ClassesController::class, 'leave_students'])->name('class.leave_students');
+    Route::delete('/{student_id}/leave_student', [ClassesController::class, 'leave_student'])->name('class.leave_student');
+    Route::get('/show_students', [ClassesController::class, 'show_students'])->name('class.show_students');
 });
 
 Route::prefix('/kbc_teacher')->middleware('auth:teacher')->group(function(){
