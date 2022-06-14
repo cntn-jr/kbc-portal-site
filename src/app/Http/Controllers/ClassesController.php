@@ -91,7 +91,7 @@ class ClassesController extends Controller
             $students = Student::where('email', 'LIKE', '%'.$search_param.'%')
                 ->get();
         }
-        return view('teacher.search_students')->with([
+        return view('teacher.students.search_students')->with([
             'class' => $class,
             'semester_name' => $semester_name,
             'students' => $students,
@@ -120,7 +120,7 @@ class ClassesController extends Controller
         $semester_model = new Semester();
         $semester_name = $semester_model->getSentenceOnClass($class_id);
         $students = Student::whereIn('id', $students)->get();
-        return view('teacher.result_add_students')->with([
+        return view('teacher.students.result_add_students')->with([
             'semester_name' => $semester_name,
             'class' => $class,
             'students' => $students
@@ -143,7 +143,7 @@ class ClassesController extends Controller
         $semester_name = $semester_model->getSentenceOnClass($class_id);
         $student_model = new Student();
         $students = $student_model->getStudentsOnClass($class_id);
-        return view('teacher.show_students')->with([
+        return view('teacher.students.show_students')->with([
             'semester_name' => $semester_name,
             'class' => $class,
             'students' => $students

@@ -1,6 +1,6 @@
-@extends('layouts.teacher_info')
+@extends('layouts.teacher_base')
 
-@section('teacher_info')
+@section('teacher_content')
     <h5 class="text-center">プロフィール編集</h5>
     <form action="{{ route('teacher.update_profile') }}" method="POST">
         <div class="form-group my-3 col-8 mx-auto">

@@ -16,7 +16,7 @@ class StudentController extends Controller
         $class = Classes::find($class_id);
         $semester_model = new Semester();
         $semester_name = $semester_model->getSentenceOnClass($class_id);
-        return view('teacher.register_student')->with([
+        return view('teacher.students.register_student')->with([
             'class' => $class,
             'semester_name' => $semester_name,
         ]);
@@ -44,7 +44,7 @@ class StudentController extends Controller
         $semester_model = new Semester();
         $semester_name = $semester_model->getSentenceOnClass($class_id);
         $students = Student::whereIn('email', $student_emails)->get();
-        return view('teacher.result_register_account')->with([
+        return view('teacher.students.result_register_account')->with([
             'semester_name' => $semester_name,
             'class' => $class,
             'students' => $students

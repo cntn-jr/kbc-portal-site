@@ -20,7 +20,7 @@ class LessonController extends Controller
         $semester_model = new Semester();
         $semester_name = $semester_model->getSentenceOnClass($class_id);
         $class = Classes::find($class_id);
-        return view('teacher.show_lessons')->with([
+        return view('teacher.lesson.show_lessons')->with([
             'lessons' => $lessons,
             'semester_name' => $semester_name,
             'class' => $class,
@@ -34,7 +34,7 @@ class LessonController extends Controller
         $class = Classes::find($class_id);
         $teacher_model = new Teacher();
         $teachers = $teacher_model->getListOfTeachers();
-        return view('teacher.create_lesson')->with([
+        return view('teacher.lesson.create_lesson')->with([
             'class' => $class,
             'semester_name' => $semester_name,
             'teachers' => $teachers,
@@ -67,7 +67,7 @@ class LessonController extends Controller
         $class = Classes::find($class_id);
         $teacher_model = new Teacher();
         $teachers = $teacher_model->getListOfTeachers();
-        return view('teacher.edit_lesson')->with([
+        return view('teacher.lesson.edit_lesson')->with([
             'class' => $class,
             'lesson' => $lesson,
             'semester_name' => $semester_name,
