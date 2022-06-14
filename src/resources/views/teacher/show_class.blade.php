@@ -3,6 +3,17 @@
 @section('class_content')
                 <a class="btn btn-outline-secondary mb-3" href="{{ route('class.edit', $class->id) }}" role="button">編集モード</a>
                 <a class="btn btn-outline-secondary mb-3" href="{{ route('announcement.show_at_teacher', $class->id) }}" role="button">お知らせ一覧</a>
+                <div class="list-group my-3">
+                    <div class="col-3 text-center text-muted list-group-item">
+                        お知らせ
+                    </div>
+                    @foreach($announcements as $announcement)
+                        <a href="{{ route('announcement.edit', ['class_id' => $class->id, 'announcement_id' => $announcement->id]) }}" class="list-group-item list-group-item-action">
+                            <h6>{{ $announcement->title }}</h6>
+                            <div class="text-truncate px-3">{{ $announcement->content }}</div>
+                        </a>
+                    @endforeach
+                </div>
                 <div class="d-flex flex-row">
                     @foreach($curriculum as $curriculum_week)
                         <div class="justify-content-center">

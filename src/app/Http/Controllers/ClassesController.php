@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Announcement;
 use App\Models\Belong_class;
 use App\Models\Classes;
 use App\Models\Curriculum;
@@ -65,6 +66,8 @@ class ClassesController extends Controller
         $curriculum_model = new Curriculum();
         $curriculum = $curriculum_model->getCurriculum($class_id);
         $dayOfTheWeeks = ['月', '火', '水', '木', '金',];
+        $announcement_model = new Announcement();
+        $announcements = $announcement_model->getAnnouncementsLast5($class_id);
         $semester_model = new Semester();
         $semester_name = $semester_model->getSentenceOnClass($class_id);
         return view('teacher.show_class')->with([
@@ -72,6 +75,7 @@ class ClassesController extends Controller
             'class' => $class,
             'dayOfTheWeeks' => $dayOfTheWeeks,
             'semester_name' => $semester_name,
+            'announcements' => $announcements,
         ]);
     }
 
