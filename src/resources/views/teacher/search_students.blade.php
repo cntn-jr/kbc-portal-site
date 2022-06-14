@@ -1,12 +1,6 @@
-@extends('layouts.app')
+@extends('layouts.teacher_class')
 
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="container justify-content-center col-md-8">
-                <h5 class="text-center mt-4 mb-2">{{ $semester_name }}</h5>
-                <h3 class="text-center mb-5">{{ $class->name }}</h3>
+@section('class_content')
                 <form action="{{ route('class.add_students', $class->id) }}" method="GET">
                     <div class="form-group my-3">
                         <input type="text" name="search_param" id="" class="form-control" value="@if($search_param) {{$search_param}} @endif" placeholder="メールアドレス検索">

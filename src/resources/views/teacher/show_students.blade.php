@@ -1,11 +1,6 @@
-@extends('layouts.app')
+@extends('layouts.teacher_class')
 
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <h5 class="text-center mt-4 mb-2">{{ $semester_name }}</h5>
-            <h3 class="text-center mb-5">{{ $class->name }}</h3>
+@section('class_content')
             <h3 class="text-center mb-5">クラスに所属している生徒</h3>
             @foreach($students as $student)
                 <form method="POST" action="{{route('class.leave_student', ['class_id' => $class->id, 'student_id' => $student->student_id])}}">

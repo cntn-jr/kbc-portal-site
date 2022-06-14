@@ -1,12 +1,6 @@
-@extends('layouts.app')
+@extends('layouts.teacher_class')
 
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="container">
-                <h5 class="text-center mt-4 mb-2">{{ $semester_name }}</h5>
-                <h3 class="text-center mb-5">{{ $class->name }}</h3>
+@section('class_content')
                 <a class="btn btn-outline-secondary my-3" href="{{ route('lesson.create', $class->id) }}" role="button">授業作成</a>
                 @foreach($lessons as $lesson_ary)
                     <div class="d-flex flex-row justify-content-center">
