@@ -10,17 +10,19 @@ class Announcement extends Model
 {
     use HasFactory;
 
-    protected $table = 'annoucements';
+    protected $table = 'announcements';
 
-    public function getAnnouncementLast5($class_id){
-        return ModelsAnnouncement::where('class_id', $class_id)
+    protected $fillable = ['title', 'content', 'class_id'];
+
+    public function getAnnouncementsLast5($class_id){
+        return Announcement::where('class_id', $class_id)
             ->orderBy('created_at', 'desc')
             ->limit(5)
             ->get();
     }
 
-    public function getAnnouncement($class_id){
-        return ModelsAnnouncement::where('class_id', $class_id)
+    public function getAnnouncements($class_id){
+        return Announcement::where('class_id', $class_id)
             ->orderBy('created_at', 'desc')
             ->get();
     }
