@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Teacher;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 
 class TeacherController extends Controller
 {
@@ -52,13 +54,40 @@ class TeacherController extends Controller
 
     //教師画面のコントローラー
 
-    public function edit_profile($teacher_id){}
+    public function edit_profile(){
+        $teacher = Auth::user();
+        return view('teacher.edit_profile')->with(['teacher' => $teacher]);
+    }
 
-    public function update_profile($teacher_id){}
+    public function update_profile(Request $request){
+        $teacher = Auth::user();
+        $teacher = Teacher::find($teacher->id);
+        $request->validate([
+            'name' => 'required|max:31',
+            'email' => ['required', 'email', Rule::unique('teachers', 'email')->ignore($teacher->id)]
+        ]);
+        $teacher->name = $request->name;
+        $teacher->email = $request->email;
+        $teacher->save();
+        return redirect()->route('teacher.edit_profile');
+    }
 
-    public function edit_password($teacher_id){}
+    public function edit_password(){
+        return view('teacher.edit_password');
+    }
 
-    public function update_password($teacher_id){}
+    public function update_password(Request $request){
+        $teacher = Auth::user();
+        $teacher = Teacher::find($teacher->id);
+        $request->validate([
+            'current_password' => 'required|current_password',
+            'new_password' => 'required|max:31|confirmed',
+        ]);
+        $password_hashed = Hash::make($request->new_password);
+        $teacher->password = $password_hashed;
+        $teacher->save();
+        return redirect()->route('teacher.edit_password');
+    }
 
 
     //生徒画面のコントローラー
