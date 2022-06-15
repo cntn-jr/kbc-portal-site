@@ -6,7 +6,9 @@ use App\Models\Classes;
 use App\Models\Semester;
 use App\Models\Student;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 
 class StudentController extends Controller
 {
@@ -54,13 +56,42 @@ class StudentController extends Controller
 
     //生徒コントローラー
 
-    public function edit_profile($student_id){}
+    public function edit_profile(){
+        $student = Auth::user();
+        return view('student.edit_profile')->with(['student' => $student]);
+    }
 
-    public function update_profile($student_id){}
+    public function update_profile(Request $request){
+        $student = Auth::user();
+        $student = Student::find($student->id);
+        $request->validate([
+            'name' => 'required|max:31',
+            'attend_num' => 'required|integer',
+            'email' => ['required', 'email', Rule::unique('students', 'email')->ignore($student->id)]
+        ]);
+        $student->name = $request->name;
+        $student->email = $request->email;
+        $student->attend_num = $request->attend_num;
+        $student->save();
+        return redirect()->route('student.edit_profile');
+    }
 
-    public function edit_password($student_id){}
+    public function edit_password(){
+        return view('student.edit_password');
+    }
 
-    public function update_password($student_id){}
+    public function update_password(Request $request){
+        $student = Auth::user();
+        $student = Student::find($student->id);
+        $request->validate([
+            'current_password' => 'required|current_password',
+            'new_password' => 'required|max:31|confirmed',
+        ]);
+        $password_hashed = Hash::make($request->new_password);
+        $student->password = $password_hashed;
+        $student->save();
+        return redirect()->route('student.edit_password');
+    }
 
     public function show_students_in_class($class_id){
         $class = Classes::find($class_id);

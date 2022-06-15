@@ -87,13 +87,23 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('teacher.edit_profile') }}">
-                                        {{ __('プロフィール') }}
-                                    </a>
+                                    @if( Auth::user()->getModelType() == '教師' )
+                                        <a class="dropdown-item" href="{{ route('teacher.edit_profile') }}">
+                                            {{ __('プロフィール') }}
+                                        </a>
 
-                                    <a class="dropdown-item" href="{{ route('teacher.edit_password') }}">
-                                        {{ __('パスワード') }}
-                                    </a>
+                                        <a class="dropdown-item" href="{{ route('teacher.edit_password') }}">
+                                            {{ __('パスワード') }}
+                                        </a>
+                                    @elseif( Auth::user()->getModelType() == '生徒' )
+                                        <a class="dropdown-item" href="{{ route('student.edit_profile') }}">
+                                            {{ __('プロフィール') }}
+                                        </a>
+
+                                        <a class="dropdown-item" href="{{ route('student.edit_password') }}">
+                                            {{ __('パスワード') }}
+                                        </a>
+                                    @endif
 
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
