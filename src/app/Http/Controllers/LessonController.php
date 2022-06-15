@@ -95,6 +95,17 @@ class LessonController extends Controller
 
 
     //生徒コントローラー
-    public function show_lesson($lesson_id){}
+    public function show_lesson($class_id, $lesson_id){
+        $class = Classes::find($class_id);
+        $semester_model = new Semester();
+        $semester_name = $semester_model->getSentenceOnClass($class_id);
+        $lesson_model = new Lesson();
+        $lesson = $lesson_model->getLesson($lesson_id);
+        return view('common.show_lesson')->with([
+            'class' => $class,
+            'semester_name' => $semester_name,
+            'lesson' => $lesson,
+        ]);
+    }
 
 }

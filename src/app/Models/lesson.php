@@ -29,4 +29,12 @@ class Lesson extends Model
             ->get();
     }
 
+    public function getLesson($lesson_id){
+        return DB::table('lessons')
+            ->select('lessons.id as lesson_id', 'lessons.name as lesson_name', 'lessons.outline', 'teachers.name as teacher_name', 'teachers.email', 'teachers.id as teacher_id')
+            ->join('teachers', 'teachers.id', '=', 'lessons.teacher_id')
+            ->where('lessons.id', $lesson_id)
+            ->first();
+    }
+
 }

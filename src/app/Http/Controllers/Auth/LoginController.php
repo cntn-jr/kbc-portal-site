@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\SemesterController;
 use App\Models\Administrator;
+use App\Models\Classes;
 use App\Models\Semester;
+use App\Models\Student;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
@@ -96,7 +98,11 @@ class LoginController extends Controller
         if(Auth::guard('student')->attempt(['email'=>$request->email, 'password'=>$request->password])){
             $request->session()->regenerate();
 
-            return redirect()->route('semester.select_at_student');
+            $student = Student::where('email', $request->email)->first();
+            $class_model = new Classes();
+            $last_class_id = $class_model->getLastClassBelongStudent($student->id);
+
+            return redirect()->route('class.show_at_student', $last_class_id);
         }
         return back()->withErrors([
             'email' => 'The provided credentials do not match our records.',

@@ -81,8 +81,29 @@ class AnnouncementController extends Controller
 
     //生徒コントローラー
 
-    public function show_announcements_at_student($class_id){}
+    public function show_announcements_at_student($class_id){
+        $class = Classes::find($class_id);
+        $announcement_model = new Announcement();
+        $announcements = $announcement_model->getAnnouncements($class_id);
+        $semester_model = new Semester();
+        $semester_name = $semester_model->getSentenceOnClass($class_id);
+        return view('common.show_announcements')->with([
+            'class' => $class,
+            'semester_name' => $semester_name,
+            'announcements' => $announcements,
+        ]);
+    }
 
     //お知らせの詳細
-    public function show_announcement($class_id, $announcement_id){}
+    public function show_announcement($class_id, $announcement_id){
+        $class = Classes::find($class_id);
+        $announcement = Announcement::find($announcement_id);
+        $semester_model = new Semester();
+        $semester_name = $semester_model->getSentenceOnClass($class_id);
+        return view('common.detail_announcement')->with([
+            'class' => $class,
+            'semester_name' => $semester_name,
+            'announcement' => $announcement,
+        ]);
+    }
 }

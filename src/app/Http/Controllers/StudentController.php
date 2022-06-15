@@ -62,5 +62,17 @@ class StudentController extends Controller
 
     public function update_password($student_id){}
 
-    public function show_students_in_class($class_id){}
+    public function show_students_in_class($class_id){
+        $class = Classes::find($class_id);
+        $semester_model = new Semester();
+        $semester_name = $semester_model->getSentenceOnClass($class_id);
+        $student_model = new Student();
+        $students = $student_model->getStudentsOnClass($class_id);
+        $students = arrayChunkObject($students, 3);
+        return view('common.show_students')->with([
+            'semester_name' => $semester_name,
+            'class' => $class,
+            'students' => $students
+        ]);
+    }
 }

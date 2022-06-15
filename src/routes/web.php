@@ -141,13 +141,13 @@ Route::prefix('/kbc_student/class/{class_id}')->middleware('auth:student')->grou
     Route::get('/', [ClassesController::class, 'show_at_student'])->name('class.show_at_student');
     Route::get('/lesson/{lesson_id}', [LessonController::class, 'show_lesson'])->name('lesson.show');
     Route::get('/students', [StudentController::class, 'show_students_in_class'])->name('student.show_students');
-    Route::get('/teachers', [TeacherController::class, 'show_teachers'])->name('teacher.show_teachers');
-    Route::get('/announcement', [AnnouncementController::class, 'show_announcements_at_student'])->name('announcement.show_announcements_at_student');
-    Route::get('/announcement/{announcement_id}', [AnnouncementController::class, 'show_announcement'])->name('announcement.show_announcement');
+    Route::get('/announcement', [AnnouncementController::class, 'show_announcements_at_student'])->name('announcement.show_at_student');
+    Route::get('/announcement/{announcement_id}', [AnnouncementController::class, 'show_announcement'])->name('announcement.show_detail');
 });
 
 Route::prefix('/kbc_student')->middleware('auth:student')->group(function(){
     Route::get('/select_semester', [SemesterController::class, 'select_at_student'])->name('semester.select_at_student');
+    Route::get('/teachers', [TeacherController::class, 'show_teachers'])->name('teacher.show_teachers');
     Route::get('/profile', [StudentController::class, 'edit_profile'])->name('student.edit_profile');
     Route::put('/profile/update', [StudentController::class, 'update_profile'])->name('student.update_profile');
     Route::get('/password', [StudentController::class, 'edit_password'])->name('student.edit_password');

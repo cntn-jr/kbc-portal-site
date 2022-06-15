@@ -91,6 +91,13 @@ class TeacherController extends Controller
 
 
     //生徒画面のコントローラー
-    public function show_teachers(){}
+    public function show_teachers(){
+        $teacher_model = new Teacher();
+        $teachers = $teacher_model->getListOfTeachers();
+        $teachers = arrayChunkObject($teachers, 3);
+        return view('common.show_teachers')->with([
+            'teachers' => $teachers,
+        ]);
+    }
 
 }

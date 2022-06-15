@@ -40,13 +40,13 @@ class ClassesSeeder extends Seeder
         ]);
         DB::table('classes')->insert([
             'id' => 5,
-            'name' => 'ITエンジニア科4年',
+            'name' => 'ITエンジニア科3年',
             'teacher_id' => 1,
             'semester_id' => 2,
         ]);
         DB::table('classes')->insert([
             'id' => 6,
-            'name' => 'ITエンジニア科4年',
+            'name' => 'ITエンジニア科3年',
             'teacher_id' => 1,
             'semester_id' => 3,
         ]);
