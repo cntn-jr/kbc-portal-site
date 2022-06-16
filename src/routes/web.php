@@ -124,6 +124,7 @@ Route::prefix('/kbc_teacher/class/{class_id}/student')->middleware('auth:teacher
 });
 
 Route::prefix('/kbc_teacher')->middleware('auth:teacher')->group(function(){
+    Route::get('/home', [HomeController::class, 'teacher'])->name('teacher.home');
     //年度の切り替え
     Route::get('/select_semester', [SemesterController::class, 'select_at_teacher'])->name('semester.select_at_teacher');
     //クラスの選択
@@ -146,6 +147,7 @@ Route::prefix('/kbc_student/class/{class_id}')->middleware('auth:student')->grou
 });
 
 Route::prefix('/kbc_student')->middleware('auth:student')->group(function(){
+    Route::get('/home', [HomeController::class, 'student'])->name('student.home');
     Route::get('/select_semester', [SemesterController::class, 'select_at_student'])->name('semester.select_at_student');
     Route::get('/teachers', [TeacherController::class, 'show_teachers'])->name('teacher.show_teachers');
     Route::get('/profile', [StudentController::class, 'edit_profile'])->name('student.edit_profile');

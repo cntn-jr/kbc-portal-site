@@ -26,9 +26,25 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
-                </a>
+                @guest
+                    <a class="navbar-brand" href="{{ url('/login') }}">
+                        {{ config('app.name', 'Laravel') }}
+                    </a>
+                @else
+                    @if(Auth::user()->getModelType() == '管理者')
+                        <a class="navbar-brand" href="{{ route('semester.select_at_admin') }}">
+                            {{ config('app.name', 'Laravel') }}
+                        </a>
+                    @elseif(Auth::user()->getModelType() == '教師')
+                        <a class="navbar-brand" href="{{ route('teacher.home') }}">
+                            {{ config('app.name', 'Laravel') }}
+                        </a>
+                    @else
+                        <a class="navbar-brand" href="{{ route('student.home') }}">
+                            {{ config('app.name', 'Laravel') }}
+                        </a>
+                    @endif
+                @endguest
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
