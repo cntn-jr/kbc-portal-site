@@ -1,4 +1,4 @@
-@extends('layouts.student_base')
+@extends('layouts.teacher_common_class')
 
 @section('student_content')
     @foreach($teachers as $teacher_group)

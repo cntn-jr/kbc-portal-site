@@ -2,6 +2,8 @@
 
 @section('class_content')
     <h3 class="text-center mb-5">クラスに所属している生徒</h3>
+    <a class="btn btn-outline-secondary mb-3" href="{{ route('student.create_account', $class->id) }}" role="button">生徒アカウント作成</a>
+    <a class="btn btn-outline-secondary mb-3" href="{{ route('class.add_students', $class->id) }}" role="button">生徒をクラスに追加</a>
     @foreach($students as $student)
         <form method="POST" action="{{route('class.leave_student', ['class_id' => $class->id, 'student_id' => $student->student_id])}}">
             <div class="form-group row bg-white py-3 m-0 border">
@@ -21,7 +23,4 @@
             </div>
         </form>
     @endforeach
-    <div class="form-group my-3">
-        <a class="btn btn-outline-secondary my-3" href="{{ route('class.show_at_teacher', $class->id) }}" role="button">クラス画面へ</a>
-    </div>
 @endsection

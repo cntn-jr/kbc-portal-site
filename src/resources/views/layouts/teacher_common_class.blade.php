@@ -4,29 +4,21 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-10 d-flex flex-row bg-white my-3">
-            <div class="col-2 text-center my-3">
+            <div class="col-3 text-center my-3">
                 <a class="text-secondary" href="{{ route('class.show_at_teacher', $class->id) }}">
                     クラス画面
                 </a>
             </div>
             <span class="border border-right border-light"></span>
-            <div class="col-2 text-center my-3">
+            <div class="col-3 text-center my-3">
                 <a class="text-secondary" href="{{ route('announcement.show_at_teacher', $class->id) }}">お知らせ一覧</a>
             </div>
             <span class="border border-right border-light"></span>
-            <div class="col-2 text-center my-3">
-                <a class="text-secondary" href="{{ route('class.edit', $class->id) }}">クラスの編集</a>
+            <div class="col-3 text-center my-3">
+                <a class="text-secondary" href="{{ route('class.show_students', $class->id) }}">生徒一覧</a>
             </div>
             <span class="border border-right border-light"></span>
-            <div class="col-2 text-center my-3">
-                <a class="text-secondary" href="{{ route('class.show_lessons', $class->id) }}">授業一覧</a>
-            </div>
-            <span class="border border-right border-light"></span>
-            <div class="col-2 text-center my-3">
-                <a class="text-secondary" href="{{ route('class.show_students', $class->id) }}">生徒管理</a>
-            </div>
-            <span class="border border-right border-light"></span>
-            <div class="col-2 text-center my-3">
+            <div class="col-3 text-center my-3">
                 <a class="text-secondary" href="{{ route('class.select', $class->semester_id) }}">
                     クラス一覧
                 </a>

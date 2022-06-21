@@ -1,8 +1,7 @@
-@extends('layouts.student_class')
+@extends('layouts.teacher_common_class')
 
 @section('class_content')
 
-    <a class="btn btn-outline-secondary mb-3" href="{{ route('announcement.show_at_teacher', $class->id) }}" role="button">お知らせ一覧</a>
     <div class="list-group my-3">
         <div class="col-3 text-center text-muted list-group-item">
             お知らせ
@@ -37,5 +36,4 @@
             </div>
         @endforeach
     </div>
-    <a class="btn btn-outline-secondary my-3" href="{{ route('class.show_students', $class->id) }}" role="button">生徒一覧</a>
 @endsection

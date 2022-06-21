@@ -3,14 +3,10 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
-
-                <div class="card-body">
-                <p><a href="{{route('teacher.login')}}">教師の方はこちら</a></p>
-                <p><a href="{{route('student.login')}}">生徒の方はこちら</a></p>
-                </div>
+        <div class="col-md-5">
+            <div class="d-flex justify-content-around mt-5">
+                <a href="{{route('teacher.login')}}" class="btn btn-secondary" role="button">教師の方はこちら</a>
+                <a href="{{route('student.login')}}" class="btn btn-secondary" role="button">生徒の方はこちら</a>
             </div>
         </div>
     </div>

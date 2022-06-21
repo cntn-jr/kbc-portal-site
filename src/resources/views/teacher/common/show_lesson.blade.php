@@ -1,4 +1,4 @@
-@extends('layouts.student_class')
+@extends('layouts.teacher_common_class')
 
 @section('class_content')
     <h6 class="text-center">授業詳細</h6>
@@ -16,7 +16,6 @@
                     {{ $lesson->outline }}
                 </div>
             </div>
-            <a class="btn btn-outline-secondary my-3" href="{{ route('class.show_at_teacher', $class->id) }}" role="button">戻る</a>
         </div>
     </div>
 @endsection
