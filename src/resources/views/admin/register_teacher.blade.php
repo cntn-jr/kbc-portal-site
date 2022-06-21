@@ -31,6 +31,10 @@
                     @enderror
                 </div>
                 <div class="form-group my-3 col-8 mx-auto">
+                    <input type="checkbox" class="form-check-input" id="isCreateStudent" name="isCreateStudent" value="1">
+                    <label for="isCreateStudent">生徒作成する権限を与える</label>
+                </div>
+                <div class="form-group my-3 col-8 mx-auto">
                     <button type="submit" class="btn btn-secondary">登録</button>
                 </div>
                 @csrf

@@ -15,6 +15,10 @@ class StudentController extends Controller
     //教師コントローラー
 
     public function create_account($class_id){
+        $login_user = Auth::user();
+        // 生徒を作成する権限ない教師はホームにリダイレクトさせる
+        if(!$login_user->isCreateStudent)
+            return redirect()->route('teacher.home');
         $class = Classes::find($class_id);
         $semester_model = new Semester();
         $semester_name = $semester_model->getSentenceOnClass($class_id);
@@ -25,6 +29,10 @@ class StudentController extends Controller
     }
 
     public function store_account($class_id, Request $request){
+        $login_user = Auth::user();
+        // 生徒を作成する権限ない教師はホームにリダイレクトさせる
+        if(!$login_user->isCreateStudent)
+            return redirect()->route('teacher.home');
         $csv_file_path = $request->file('student_csv')->path();
         $students = readCsv($csv_file_path);
         $student_model = new Student();

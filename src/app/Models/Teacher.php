@@ -13,7 +13,7 @@ class Teacher extends Authenticatable
 
     protected $table = 'teachers';
 
-    protected $fillable = ['name', 'email', 'password',];
+    protected $fillable = ['name', 'email', 'password', 'isCreateStudent'];
 
     const MODEL_TYPE = 'teacher';
 

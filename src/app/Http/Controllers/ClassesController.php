@@ -11,6 +11,10 @@ use App\Models\Semester;
 use App\Models\Student;
 use App\Models\Teacher;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
+use function PHPUnit\Framework\returnSelf;
+
 class ClassesController extends Controller
 {
     //管理者コントローラー
@@ -62,6 +66,7 @@ class ClassesController extends Controller
 
     //クラス画面
     public function show_at_teacher($class_id){
+        $login_user = Auth::user();
         $class = Classes::find($class_id);
         $curriculum_model = new Curriculum();
         $curriculum = $curriculum_model->getCurriculum($class_id);
@@ -70,18 +75,33 @@ class ClassesController extends Controller
         $announcements = $announcement_model->getAnnouncementsLast5($class_id);
         $semester_model = new Semester();
         $semester_name = $semester_model->getSentenceOnClass($class_id);
-        return view('teacher.show_class')->with([
-            'curriculum' => $curriculum,
-            'class' => $class,
-            'dayOfTheWeeks' => $dayOfTheWeeks,
-            'semester_name' => $semester_name,
-            'announcements' => $announcements,
-        ]);
+        // 担任教師以外は別の画面を表示する
+        if($class->isResponsibleClass($login_user->id)){
+            return view('teacher.show_class')->with([
+                'curriculum' => $curriculum,
+                'class' => $class,
+                'dayOfTheWeeks' => $dayOfTheWeeks,
+                'semester_name' => $semester_name,
+                'announcements' => $announcements,
+            ]);
+        }else{
+            return view('teacher.common.show_class')->with([
+                'curriculum' => $curriculum,
+                'class' => $class,
+                'dayOfTheWeeks' => $dayOfTheWeeks,
+                'semester_name' => $semester_name,
+                'announcements' => $announcements,
+            ]);
+        }
     }
 
     //クラスに生徒を追加する（所属させる）
     public function add_students($class_id, Request $request){
+        $login_user = Auth::user();
         $class = Classes::find($class_id);
+        // 担任教師でなければホームにリダイレクトさせる
+        if(!$class->isResponsibleClass($login_user->id))
+            return redirect()->route('teacher.home');
         $semester_model = new Semester();
         $semester_name = $semester_model->getSentenceOnClass($class_id);
         $students = [];
@@ -99,8 +119,13 @@ class ClassesController extends Controller
         ]);
     }
 
+    //クラスに生徒を追加する（所属させる保存処理）
     public function store_add_students($class_id, Request $request){
+        $login_user = Auth::user();
         $class = Classes::find($class_id);
+        // 担任教師でなければ、ホームにリダイレクトさせる
+        if(!$class->isResponsibleClass($login_user->id))
+            return redirect()->route('teacher.home');
         $students = [];
         foreach($request->all() as $index => $student_id){
             if( preg_match('/^student_id[0-9]+$/', $index) ){
@@ -129,6 +154,11 @@ class ClassesController extends Controller
 
     //生徒をクラスから開放する
     public function leave_student($class_id, $student_id){
+        $login_user = Auth::user();
+        $class = Classes::find($class_id);
+        // 担任教師でなければ、ホームにリダイレクトさせる
+        if(!$class->isResponsibleClass($login_user->id))
+            return redirect()->route('teacher.home');
         $belong_class = Belong_class::where('class_id', $class_id)
             ->where('student_id', $student_id)
             ->first();
@@ -143,16 +173,30 @@ class ClassesController extends Controller
         $semester_name = $semester_model->getSentenceOnClass($class_id);
         $student_model = new Student();
         $students = $student_model->getStudentsOnClass($class_id);
-        return view('teacher.students.show_students')->with([
-            'semester_name' => $semester_name,
-            'class' => $class,
-            'students' => $students
-        ]);
+        $login_user = Auth::user();
+        // 担任以外の教師は編集画面を表示しない
+        if(!$class->isResponsibleClass($login_user->id)){
+            $students = arrayChunkObject($students, 3);
+            return view('teacher.common.show_students')->with([
+                'semester_name' => $semester_name,
+                'class' => $class,
+                'students' => $students
+            ]);
+        }else
+            return view('teacher.students.show_students')->with([
+                'semester_name' => $semester_name,
+                'class' => $class,
+                'students' => $students
+            ]);
     }
 
     //クラスの編集（クラス名やカリキュラムなど）
     public function edit($class_id){
+        $login_user = Auth::user();
         $class = Classes::find($class_id);
+        // 担任教師でなければ、ホームにリダイレクトさせる
+        if(!$class->isResponsibleClass($login_user->id))
+            return redirect()->route('teacher.home');
         $curriculum_model = new Curriculum();
         $curriculum = $curriculum_model->getCurriculum($class_id);
         $dayOfTheWeeks = ['月', '火', '水', '木', '金',];
@@ -171,7 +215,11 @@ class ClassesController extends Controller
 
     //クラス名の更新
     public function update($class_id, Request $request){
+        $login_user = Auth::user();
         $class = Classes::find($class_id);
+        // 担任教師でなければ、ホームにリダイレクトさせる
+        if(!$class->isResponsibleClass($login_user->id))
+            return redirect()->route('teacher.home');
         $request->validate([
             'class_name' => 'required|max:63'
         ]);

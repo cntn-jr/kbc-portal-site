@@ -24,16 +24,21 @@ class TeacherController extends Controller
             'name' => 'required|max:31',
             'email' => 'required|email|unique:teachers,email',
             'password' => 'required|min:8|max:31'
-        ]);
-        $teacher = Teacher::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
         ],[
             'name.required' => '名前を入力してください',
             'name.max' => '３１文字以内で入力してください',
             'email.email' => 'メールアドレスを入力してください',
             'email.unique' => '既に使用されているメールアドレスです',
+        ]);
+        // 教師の生徒を作成する権限
+        $isCreateStudent = 0;
+        if($request->isCreateStudent)
+            $isCreateStudent = 1;
+        $teacher = Teacher::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'isCreateStudent' => $isCreateStudent,
         ]);
         $teacher->save();
         return redirect()->route('teacher.manage');

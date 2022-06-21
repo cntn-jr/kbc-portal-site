@@ -7,6 +7,7 @@ use App\Models\Lesson;
 use App\Models\Semester;
 use App\Models\Teacher;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LessonController extends Controller
 {
@@ -29,9 +30,13 @@ class LessonController extends Controller
 
     //授業追加画面
     public function create($class_id){
+        $login_user = Auth::user();
+        $class = Classes::find($class_id);
+        // 担任以外の教師はホームにリダイレクトさせる
+        if(!$class->isResponsibleClass($login_user->id))
+            return redirect()->route('teacher.home');
         $semester_model = new Semester();
         $semester_name = $semester_model->getSentenceOnClass($class_id);
-        $class = Classes::find($class_id);
         $teacher_model = new Teacher();
         $teachers = $teacher_model->getListOfTeachers();
         return view('teacher.lesson.create_lesson')->with([
@@ -43,6 +48,11 @@ class LessonController extends Controller
 
     //授業保存処理
     public function store($class_id, Request $request){
+        $login_user = Auth::user();
+        $class = Classes::find($class_id);
+        // 担任以外の教師はホームにリダイレクトさせる
+        if(!$class->isResponsibleClass($login_user->id))
+            return redirect()->route('teacher.home');
         $request->validate([
             'name' => ['required', 'max:31'],
             'outline' => ['max:255'],
@@ -61,22 +71,39 @@ class LessonController extends Controller
 
     //授業編集画面
     public function edit($class_id, $lesson_id){
+        $login_user = Auth::user();
+        $class = Classes::find($class_id);
         $lesson = Lesson::find($lesson_id);
         $semester_model = new Semester();
         $semester_name = $semester_model->getSentenceOnClass($class_id);
-        $class = Classes::find($class_id);
         $teacher_model = new Teacher();
         $teachers = $teacher_model->getListOfTeachers();
-        return view('teacher.lesson.edit_lesson')->with([
-            'class' => $class,
-            'lesson' => $lesson,
-            'semester_name' => $semester_name,
-            'teachers' => $teachers,
-        ]);
+        $login_user = Auth::user();
+        // 担任以外の教師は編集させない
+        if(!$class->isResponsibleClass($login_user->id)){
+            $lesson_model = new Lesson();
+            $lesson = $lesson_model->getLesson($lesson_id);
+            return view('teacher.common.show_lesson')->with([
+                'class' => $class,
+                'lesson' => $lesson,
+                'semester_name' => $semester_name,
+            ]);
+        }else
+            return view('teacher.lesson.edit_lesson')->with([
+                'class' => $class,
+                'lesson' => $lesson,
+                'semester_name' => $semester_name,
+                'teachers' => $teachers,
+            ]);
     }
 
     //授業更新処理
     public function update($class_id, $lesson_id, Request $request){
+        $login_user = Auth::user();
+        $class = Classes::find($class_id);
+        // 担任以外の教師はホームにリダイレクトさせる
+        if(!$class->isResponsibleClass($login_user->id))
+            return redirect()->route('teacher.home');
         $request->validate([
             'name' => ['required', 'max:31'],
             'outline' => ['max:255'],
