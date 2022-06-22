@@ -239,7 +239,7 @@ class ClassesController extends Controller
         $dayOfTheWeeks = ['月', '火', '水', '木', '金',];
         $announcement_model = new Announcement();
         $announcements = $announcement_model->getAnnouncementsLast5($class_id);
-        return view('common.show_class')->with([
+        return view('student.show_class')->with([
             'curriculum' => $curriculum,
             'class' => $class,
             'dayOfTheWeeks' => $dayOfTheWeeks,

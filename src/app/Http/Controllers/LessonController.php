@@ -128,7 +128,7 @@ class LessonController extends Controller
         $semester_name = $semester_model->getSentenceOnClass($class_id);
         $lesson_model = new Lesson();
         $lesson = $lesson_model->getLesson($lesson_id);
-        return view('common.show_lesson')->with([
+        return view('student.show_lesson')->with([
             'class' => $class,
             'semester_name' => $semester_name,
             'lesson' => $lesson,

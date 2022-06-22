@@ -100,7 +100,7 @@ class TeacherController extends Controller
         $teacher_model = new Teacher();
         $teachers = $teacher_model->getListOfTeachers();
         $teachers = arrayChunkObject($teachers, 3);
-        return view('common.show_teachers')->with([
+        return view('student.show_teachers')->with([
             'teachers' => $teachers,
         ]);
     }

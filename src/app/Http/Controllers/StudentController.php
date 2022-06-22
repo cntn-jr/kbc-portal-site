@@ -108,7 +108,7 @@ class StudentController extends Controller
         $student_model = new Student();
         $students = $student_model->getStudentsOnClass($class_id);
         $students = arrayChunkObject($students, 3);
-        return view('common.show_students')->with([
+        return view('student.show_students')->with([
             'semester_name' => $semester_name,
             'class' => $class,
             'students' => $students

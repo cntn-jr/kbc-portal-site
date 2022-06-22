@@ -124,7 +124,7 @@ class AnnouncementController extends Controller
         $announcements = $announcement_model->getAnnouncements($class_id);
         $semester_model = new Semester();
         $semester_name = $semester_model->getSentenceOnClass($class_id);
-        return view('common.show_announcements')->with([
+        return view('student.show_announcements')->with([
             'class' => $class,
             'semester_name' => $semester_name,
             'announcements' => $announcements,
@@ -137,7 +137,7 @@ class AnnouncementController extends Controller
         $announcement = Announcement::find($announcement_id);
         $semester_model = new Semester();
         $semester_name = $semester_model->getSentenceOnClass($class_id);
-        return view('common.detail_announcement')->with([
+        return view('student.detail_announcement')->with([
             'class' => $class,
             'semester_name' => $semester_name,
             'announcement' => $announcement,

@@ -10,5 +10,4 @@
             </a>
         @endforeach
     </div>
-    <a class="btn btn-outline-secondary my-3" href="{{ route('class.show_at_student', $class->id) }}" role="button">戻る</a>
 @endsection
