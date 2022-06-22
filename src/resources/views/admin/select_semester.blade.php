@@ -1,26 +1,20 @@
-@extends('layouts.app')
+@extends('layouts.admin_base')
 
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card-group mt-5">
-                @foreach($semesters as $semester)
-                    <div class="card m-1" style="width: 10rem; height: 10rem;">
-                        <a href="{{ route('semester.show_at_admin', $semester->id) }}" class="text-secondary" style="text-decoration: none;">
-                            <div class="card-body">
-                                <h5 class="card-title text-center mt-5">
-                                    {{$semester->getSentence() }}
-                                </h5>
-                            </div>
-                        </a>
+@section('admin_content')
+    <div class="card-group mt-5 justify-content-center">
+        @foreach($semesters as $semester)
+            <a href="{{ route('semester.show_at_admin', $semester->id) }}" class="text-secondary" style="text-decoration: none;">
+                <div class="card m-1" style="width: 10rem; height: 10rem;">
+                    <div class="card-body">
+                        <h5 class="card-title text-center mt-5">
+                            {{$semester->getSentence() }}
+                        </h5>
                     </div>
-                @endforeach
-            </div>
-            <div class="mt-3">
-                {{$semesters->links()}}
-            </div>
-        </div>
+                </div>
+            </a>
+        @endforeach
     </div>
-</div>
+    <div class="mt-5 d-flex justify-content-around">
+        {{$semesters->links()}}
+    </div>
 @endsection

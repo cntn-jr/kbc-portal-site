@@ -15,7 +15,7 @@ class SemesterController extends Controller
 
     public function select_at_admin(){
         $semester = new Semester();
-        $semesters = $semester->getSemestersPage5();
+        $semesters = $semester->getSemestersPage4();
         return view('admin.select_semester')->with('semesters', $semesters);
     }
 

@@ -15,10 +15,10 @@ class Semester extends Model
 
     protected $fillable = ['year', 'isEarlyPeriod'];
 
-    public function getSemestersPage5(){
+    public function getSemestersPage4(){
         return $this->orderBy('year', 'desc')
             ->orderBy('isEarlyPeriod', 'asc')
-            ->paginate(5);
+            ->paginate(4);
     }
 
     public function getSemesters(){
