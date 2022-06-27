@@ -77,4 +77,17 @@ class Classes extends Model
             ->first()
             ->class_id;
     }
+
+    // 生徒が所属しているクラス一覧
+    public function getClassesBelongStudent($student_id){
+        return DB::table('classes')
+            ->select('classes.id as class_id')
+            ->join('belong_classes', 'classes.id', '=', 'belong_classes.class_id')
+            ->join('students', 'belong_classes.student_id', '=', 'students.id')
+            ->join('semesters', 'classes.semester_id', '=', 'semesters.id')
+            ->where('students.id', $student_id)
+            ->orderBy('semesters.year', 'desc')
+            ->orderBy('semesters.isEarlyPeriod', 'asc')
+            ->get();
+    }
 }

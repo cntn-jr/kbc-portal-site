@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ __('KBC Portal Site') }}</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -32,20 +32,20 @@
             <div class="container">
                 @guest
                     <a class="navbar-brand" href="{{ url('/login') }}">
-                        {{ config('app.name', 'Laravel') }}
+                        {{ __('KBC Portal Site') }}
                     </a>
                 @else
                     @if(Auth::user()->getModelType() == '管理者')
                         <a class="navbar-brand" href="{{ route('semester.select_at_admin') }}">
-                            {{ config('app.name', 'Laravel') }}
+                            {{ __('KBC Portal Site') }}
                         </a>
                     @elseif(Auth::user()->getModelType() == '教師')
                         <a class="navbar-brand" href="{{ route('teacher.home') }}">
-                            {{ config('app.name', 'Laravel') }}
+                            {{ __('KBC Portal Site') }}
                         </a>
                     @else
                         <a class="navbar-brand" href="{{ route('student.home') }}">
-                            {{ config('app.name', 'Laravel') }}
+                            {{ __('KBC Portal Site') }}
                         </a>
                     @endif
                 @endguest
@@ -75,16 +75,36 @@
                                     $semester_model = new \App\Models\Semester;
                                     $semesters_app = $semester_model->getSemesters();
                                 @endphp
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    年度
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-end mx-5" aria-labelledby="navbarDropdown">
-                                    @foreach($semesters_app as $semester_app)
-                                        <a class="dropdown-item" href="{{ route('class.select', $semester_app->id) }}">
-                                            {{ $semester_app->getSentence() }}
-                                        </a>
-                                    @endforeach
-                                </div>
+                                <li class="nav-item dropdown mx-4">
+                                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                        年度
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                        @foreach($semesters_app as $semester_app)
+                                            <a class="dropdown-item" href="{{ route('class.select', $semester_app->id) }}">
+                                                {{ $semester_app->getSentence() }}
+                                            </a>
+                                        @endforeach
+                                    </div>
+                                </li>
+                            @elseif(Auth::user()->getModelType() == '生徒')
+                                @php
+                                    $class_model = new \App\Models\Classes;
+                                    $app_classes = $class_model->getClassesBelongStudent(Auth::id());
+                                    $semester_model = new \App\Models\Semester;
+                                @endphp
+                                <li class="nav-item dropdown mx-4">
+                                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                        年度
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                        @foreach($app_classes as $app_class)
+                                            <a class="dropdown-item" href="{{ route('class.show_at_student', $app_class->class_id) }}">
+                                                {{ $semester_model->getSentenceOnClass($app_class->class_id) }}
+                                            </a>
+                                        @endforeach
+                                    </div>
+                                </li>
                             @endif
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

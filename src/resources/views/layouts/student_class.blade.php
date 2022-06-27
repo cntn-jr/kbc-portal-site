@@ -3,7 +3,9 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-    <div class="col-md-10 d-flex flex-row bg-white my-3">
+        <h5 class="text-center mt-4 mb-2">{{ $semester_name }}</h5>
+        <h3 class="text-center mb-3">{{ $class->name }}</h3>
+        <div class="col-md-10 d-flex flex-row bg-white my-3">
             <div class="col-3 text-center my-3">
                 <a class="text-secondary" href="{{ route('class.show_at_student', $class->id) }}">
                     クラス画面
@@ -24,8 +26,6 @@
         </div>
         <div class="col-md-8">
             <div class="container">
-                <h5 class="text-center mt-4 mb-2">{{ $semester_name }}</h5>
-                <h3 class="text-center mb-3">{{ $class->name }}</h3>
                 @yield('class_content')
             </div>
         </div>
