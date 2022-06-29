@@ -7,6 +7,7 @@ use App\Models\Belong_class;
 use App\Models\Classes;
 use App\Models\Curriculum;
 use App\Models\Lesson;
+use App\Models\Schedule;
 use App\Models\Semester;
 use App\Models\Student;
 use App\Models\Teacher;
@@ -73,6 +74,8 @@ class ClassesController extends Controller
         $dayOfTheWeeks = ['月', '火', '水', '木', '金',];
         $announcement_model = new Announcement();
         $announcements = $announcement_model->getAnnouncementsLast5($class_id);
+        $schedule_model = new Schedule();
+        $schedules = $schedule_model->getSchedule($class_id);
         $semester_model = new Semester();
         $semester_name = $semester_model->getSentenceOnClass($class_id);
         // 担任教師以外は別の画面を表示する
@@ -83,6 +86,7 @@ class ClassesController extends Controller
                 'dayOfTheWeeks' => $dayOfTheWeeks,
                 'semester_name' => $semester_name,
                 'announcements' => $announcements,
+                'schedules' => $schedules,
             ]);
         }else{
             return view('teacher.common.show_class')->with([

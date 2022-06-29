@@ -12,7 +12,8 @@
             </a>
         @endforeach
     </div>
-    <div class="d-flex flex-row">
+    <calendar-component :is_teacher="1" :csrf="{{json_encode(csrf_token())}}" :redirect_pass="{{ json_encode(route('schedule.store', $class->id)) }}" :schedules="{{ json_encode($schedules) }}" :class_id="{{ $class->id }}"></calendar-component>
+    <div class="d-flex flex-row my-3">
         @foreach($curriculum as $curriculum_week)
             <div class="justify-content-center">
                 <div class="card text-center" style="width: 10rem; height: 3rem;">

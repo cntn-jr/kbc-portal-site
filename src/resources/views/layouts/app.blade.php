@@ -28,7 +28,7 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm" id="head-nav">
             <div class="container">
                 @guest
                     <a class="navbar-brand" href="{{ url('/login') }}">
@@ -151,7 +151,7 @@
             </div>
         </nav>
 
-        <main class="py-4">
+        <main class="pb-4">
             @yield('content')
         </main>
     </div>

@@ -11286,3 +11286,15 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
+body {
+  background-color: rgba(85, 239, 196, 0.1);
+}
+body #head-nav {
+  position: fixed;
+  width: 100%;
+  z-index: 100;
+  background-color: rgba(85, 239, 196, 0.3) !important;
+}
+body main {
+  padding-top: 5rem;
+}

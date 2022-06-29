@@ -6,3 +6,16 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+body{
+    background-color: rgba(85, 239, 196, .1);
+    #head-nav{
+        position: fixed;
+        width: 100%;
+        z-index: 100;
+        background-color: rgba(85, 239, 196, .3) !important;
+    }
+    main{
+        padding-top: 5rem;
+    }
+}
