@@ -13,7 +13,8 @@
             </a>
         @endforeach
     </div>
-    <div class="d-flex flex-row">
+    <calendar-component :is_teacher="0" csrf="" redirect_pass="" :schedules="{{ json_encode($schedules) }}" class_id=""></calendar-component>
+    <div class="d-flex flex-row my-3">
         @foreach($curriculum as $curriculum_week)
             <div class="justify-content-center">
                 <div class="card text-center" style="width: 10rem; height: 3rem;">

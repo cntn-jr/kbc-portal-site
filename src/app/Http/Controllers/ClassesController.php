@@ -95,6 +95,7 @@ class ClassesController extends Controller
                 'dayOfTheWeeks' => $dayOfTheWeeks,
                 'semester_name' => $semester_name,
                 'announcements' => $announcements,
+                'schedules' => $schedules,
             ]);
         }
     }
@@ -243,12 +244,15 @@ class ClassesController extends Controller
         $dayOfTheWeeks = ['月', '火', '水', '木', '金',];
         $announcement_model = new Announcement();
         $announcements = $announcement_model->getAnnouncementsLast5($class_id);
+        $schedule_model = new Schedule();
+        $schedules = $schedule_model->getSchedule($class_id);
         return view('student.show_class')->with([
             'curriculum' => $curriculum,
             'class' => $class,
             'dayOfTheWeeks' => $dayOfTheWeeks,
             'semester_name' => $semester_name,
             'announcements' => $announcements,
+            'schedules' => $schedules,
         ]);
     }
 }

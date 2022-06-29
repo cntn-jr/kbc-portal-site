@@ -51199,7 +51199,7 @@ var render = function () {
                                 attrs: {
                                   csrf: _vm.csrf,
                                   date: date,
-                                  is_teacher: "1",
+                                  is_teacher: _vm.is_teacher,
                                   schedules: _vm.schedules,
                                   class_id: _vm.class_id,
                                 },

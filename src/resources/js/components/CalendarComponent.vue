@@ -32,7 +32,7 @@
                                         {{date.day}}
                                     </div>
                                     <div v-if="date.month == current.month()+1">
-                                        <schedule-component :csrf="csrf" :date="date" is_teacher="1" :schedules="schedules" :class_id="class_id"></schedule-component>
+                                        <schedule-component :csrf="csrf" :date="date" :is_teacher="is_teacher" :schedules="schedules" :class_id="class_id"></schedule-component>
                                     </div>
                                 </td>
                             </tr>
