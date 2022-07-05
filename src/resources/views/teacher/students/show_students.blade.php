@@ -1,7 +1,7 @@
 @extends('layouts.teacher_class')
 
 @section('class_content')
-    <h3 class="text-center mb-5">クラスに所属している生徒</h3>
+    <h5 class="text-center my-4">クラスに所属している生徒</h5>
     <a class="btn btn-outline-secondary mb-3" href="{{ route('student.create_account', $class->id) }}" role="button">生徒アカウント作成</a>
     <a class="btn btn-outline-secondary mb-3" href="{{ route('class.add_students', $class->id) }}" role="button">生徒をクラスに追加</a>
     @foreach($students as $student)

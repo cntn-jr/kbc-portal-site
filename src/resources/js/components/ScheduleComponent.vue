@@ -1,7 +1,7 @@
 <template>
     <div id="main-content">
         <div v-if="getSchedule.count > 0" id="multiple-schedule">
-            <div class="show-btn" @click="showModal">
+            <div class="show-btn text-truncate" @click="showModal">
                 <span v-if="getSchedule.count > 1">{{getSchedule.count}}件の予定</span>
                 <span v-else>{{getSchedule.schedules[0].detail}}</span>
             </div>
@@ -88,13 +88,14 @@ export default {
         #multiple-schedule{
             .show-btn{
                 width: 80%;
-                max-height: 4.5rem;
-                font-size: 0.7rem;
-                background: #dfe6e9;
+                max-height: 2.5rem;
+                max-width: 3.0rem;
+                font-size: 0.5rem;
+                background: rgba($color: #dfe6e9, $alpha: .4);
                 color: #333;
                 border-radius: .5rem;
-                padding: .5rem;
-                margin: .5rem auto 0;
+                padding: .2rem;
+                margin: .2rem auto 0;
                 cursor: pointer;
                 text-align: center;
                 overflow: scroll;
@@ -133,7 +134,7 @@ export default {
                     font-size: 1.1rem;
                 }
                 .schedule-date-modal{
-                    font-size: 1.25rem;
+                    font-size: 1.0rem;
                     color: #333;
                     margin: 1rem;
                     padding: 1rem;

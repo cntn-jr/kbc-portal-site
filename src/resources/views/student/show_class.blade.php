@@ -1,20 +1,22 @@
-@extends('layouts.student_class')
+@extends('layouts.student_class_home')
 
 @section('class_content')
 
-    <div class="list-group my-3">
-        <div class="col-3 text-center text-muted list-group-item">
-            お知らせ
+    <div class="d-flex justify-content-between">
+        <div class="list-group my-3">
+            <div class="col-3 text-center text-muted list-group-item">
+                お知らせ
+            </div>
+            @foreach($announcements as $announcement)
+                <a href="{{ route('announcement.show_detail', ['class_id' => $class->id, 'announcement_id' => $announcement->id]) }}" class="list-group-item list-group-item-action">
+                    <h6>{{ $announcement->title }}</h6>
+                    <div class="text-truncate px-3">{{ $announcement->content }}</div>
+                </a>
+            @endforeach
         </div>
-        @foreach($announcements as $announcement)
-            <a href="{{ route('announcement.show_detail', ['class_id' => $class->id, 'announcement_id' => $announcement->id]) }}" class="list-group-item list-group-item-action">
-                <h6>{{ $announcement->title }}</h6>
-                <div class="text-truncate px-3">{{ $announcement->content }}</div>
-            </a>
-        @endforeach
+        <calendar-component :is_teacher="0" csrf="" redirect_pass="" :schedules="{{ json_encode($schedules) }}" class_id=""></calendar-component>
     </div>
-    <calendar-component :is_teacher="0" csrf="" redirect_pass="" :schedules="{{ json_encode($schedules) }}" class_id=""></calendar-component>
-    <div class="d-flex flex-row my-3">
+    <div class="d-flex flex-row my-3 justify-content-center">
         @foreach($curriculum as $curriculum_week)
             <div class="justify-content-center">
                 <div class="card text-center" style="width: 10rem; height: 3rem;">

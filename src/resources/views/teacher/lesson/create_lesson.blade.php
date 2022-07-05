@@ -1,6 +1,7 @@
 @extends('layouts.teacher_class')
 
 @section('class_content')
+    <h5 class="text-center my-3">授業作成</h5>
     <form action="{{ route('lesson.store', $class->id) }}" method="post">
         <div class="form-group my-3 col-8 mx-auto">
             <label for="class_name">授業名</label>

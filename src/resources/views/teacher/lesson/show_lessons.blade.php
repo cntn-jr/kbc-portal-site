@@ -1,6 +1,7 @@
 @extends('layouts.teacher_class')
 
 @section('class_content')
+    <h5 class="text-center my-3">授業一覧</h5>
     <a class="btn btn-outline-secondary my-3" href="{{ route('lesson.create', $class->id) }}" role="button">授業作成</a>
     @foreach($lessons as $lesson_ary)
         <div class="d-flex flex-row justify-content-center">

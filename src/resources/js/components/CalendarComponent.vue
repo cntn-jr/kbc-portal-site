@@ -1,7 +1,7 @@
 <template>
         <div id="container-main">
 
-            <div class="card">
+            <div class="card mt-3">
                 <div class="card-header">
                     <div class="row">
                         <button class="page-link text-reset ml-5 col-1" @click="reduceMonth">&laquo;</button>
@@ -199,11 +199,11 @@ export default {
             #calendar-head{
                 text-align: center;
                 width: 90%;
-                height: 4rem;
+                height: 2rem;
                 tr{
                     td{
                         border: 2px solid #eee;
-                        width: 6rem;
+                        width: 5rem;
                     }
                     .sunday{
                         color: $sunday-color;
@@ -219,8 +219,8 @@ export default {
                     td{
                         vertical-align: top;
                         border: 2px solid #eee;
-                        height: 7rem;
-                        width: 7rem;
+                        height: 5rem;
+                        width: 5rem;
                         padding: .3rem;
                         p{
                             margin-bottom: 0rem;

@@ -34,8 +34,8 @@
                 </a>
             </div>
         </div>
-        <div class="col-md-8">
-            <div class="container py-3">
+        <div class="col-md-11">
+            <div class="container">
                 @yield('class_content')
             </div>
         </div>

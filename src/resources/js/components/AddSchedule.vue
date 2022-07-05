@@ -67,7 +67,7 @@ export default {
         left: 30%;
         border-radius: .5rem;
         overflow: scroll;
-        background: #eee;
+        background: #fff;
         border: 1px solid rgba(9, 132, 227, .2);
         #modal-header{
             font-size: 1.1rem;

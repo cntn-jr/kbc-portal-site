@@ -1,7 +1,7 @@
 @extends('layouts.teacher_class')
 
 @section('class_content')
-    <h5 class="text-center">お知らせ一覧</h5>
+    <h5 class="text-center my-3">お知らせ一覧</h5>
     <a class="btn btn-outline-secondary mb-3" href="{{ route('announcement.create', $class->id) }}" role="button">新規作成</a>
     <div class="list-group">
         @foreach($announcements as $announcement)

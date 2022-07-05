@@ -1,6 +1,7 @@
 @extends('layouts.teacher_class')
 
 @section('class_content')
+    <h5 class="text-center my-3">授業編集</h5>
     <form action="{{ route('lesson.update', [
         'class_id' => $class->id,
         'lesson_id' => $lesson->id
