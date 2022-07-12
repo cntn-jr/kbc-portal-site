@@ -13,10 +13,9 @@
                     </div>
                     <div class="card-body">
                         <div class="schedule-date-modal">
-                            <div v-for="(schedule, index) in getSchedule.schedules" :key="index" class="one-schedule">
-                                <span class="content">{{schedule.detail}}</span>
-                                <button class="edit-btn" @click="showEdit" v-if="is_teacher">編集</button>
-                                <edit-schedule :csrf="csrf" v-on:exitEditModal="isEdit = $event" v-if="isEdit" :schedule="schedule" :class_id="class_id"></edit-schedule>
+                            <div v-for="(schedule, index) in getSchedule.schedules" :key="index" class="one-schedule d-flex flex-row">
+                                <edit-schedule :csrf="csrf" v-if="is_teacher" :schedule="schedule" :class_id="class_id"></edit-schedule>
+                                <span class="content mx-auto">{{schedule.detail}}</span>
                             </div>
                         </div>
                     </div>
@@ -37,7 +36,6 @@ export default {
         return{
             isShowModal: false,
             changeInput: false,
-            isEdit: false,
         }
     },
     methods:{
@@ -46,9 +44,6 @@ export default {
         },
         exitModal(){
             this.isShowModal = false;
-        },
-        showEdit(){
-            this.isEdit = true;
         }
     },
     computed:{
@@ -141,19 +136,6 @@ export default {
                     .one-schedule{
                         text-align: center;
                         margin: .2rem auto;
-                        .edit-btn{
-                            border-radius: .4rem;
-                            background: #74b9ff;
-                            color: #fff;
-                            border: 1px solid #ccc;
-                            margin: 0 .2rem 0 .8rem;
-                            padding: 0 .3rem;
-                            font-size: .8rem;
-                            vertical-align: middle;
-                            &:hover{
-                                opacity: .7;
-                            }
-                        }
                     }
                 }
             }

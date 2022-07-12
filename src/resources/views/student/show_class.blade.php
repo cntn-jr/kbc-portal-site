@@ -3,17 +3,7 @@
 @section('class_content')
 
     <div class="d-flex justify-content-between">
-        <div class="list-group my-3">
-            <div class="col-3 text-center text-muted list-group-item">
-                お知らせ
-            </div>
-            @foreach($announcements as $announcement)
-                <a href="{{ route('announcement.show_detail', ['class_id' => $class->id, 'announcement_id' => $announcement->id]) }}" class="list-group-item list-group-item-action">
-                    <h6>{{ $announcement->title }}</h6>
-                    <div class="text-truncate px-3">{{ $announcement->content }}</div>
-                </a>
-            @endforeach
-        </div>
+        <last-announcement :is_teacher="0" :announcements="{{ json_encode($announcements) }}" :csrf="{{json_encode(csrf_token())}}" :class_id="{{ $class->id }}"></last-announcement>
         <calendar-component :is_teacher="0" csrf="" redirect_pass="" :schedules="{{ json_encode($schedules) }}" class_id=""></calendar-component>
     </div>
     <div class="d-flex flex-row my-3 justify-content-center">

@@ -21,6 +21,8 @@ window.Vue = require('vue').default;
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('calendar-component', require('./components/CalendarComponent.vue').default);
+Vue.component('last-announcement', require('./components/Announcement/LastAnnouncements.vue').default);
+Vue.component('announcements-component', require('./components/Announcement/AnnounecementsComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

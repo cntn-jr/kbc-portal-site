@@ -39,12 +39,9 @@
                         </tbody>
                     </table>
                     <div class="mt-3" v-if="is_teacher">
-                        <button class="btn btn-secondary" @click="clickAdd">予定追加</button>
+                        <add-schedule :csrf="csrf" :redirect_pass="redirect_pass"></add-schedule>
                     </div>
                 </div>
-            </div>
-            <div v-show="is_add_modal">
-                <add-schedule v-on:exitAddModal="is_add_modal = $event" :csrf="csrf" :redirect_pass="redirect_pass"></add-schedule>
             </div>
         </div>
 </template>
@@ -61,7 +58,6 @@ export default {
     data(){
         return{
             current: moment(),
-            is_add_modal: false,
             get_type: '予定',
         }
     },
@@ -192,6 +188,7 @@ export default {
     $sunday-color : #d63031;
     $saturday-color: #0984e3;
     #container-main{
+        width: 50%;
         table{
             font-family: $font;
             border-collapse: collapse;

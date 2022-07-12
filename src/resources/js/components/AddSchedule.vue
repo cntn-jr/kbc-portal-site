@@ -1,39 +1,51 @@
 <template>
-    <div id="content-modal">
-        <div id="modal-bg" @click="exitAddModal"></div>
-        <transition name="add-modal" appear>
-            <div id="modal-box">
-                <div id="modal-header">
-                    予定を追加する
+    <div>
+        <div>
+            <button class="btn btn-secondary" @click="showModal">予定追加</button>
+        </div>
+        <div id="content-modal">
+            <div id="modal-bg" @click="exitAddModal" v-show="is_add_modal"></div>
+            <transition name="add-modal">
+                <div id="modal-box" v-show="is_add_modal">
+                    <div id="modal-header">
+                        予定を追加する
+                    </div>
+                    <div class="container" id="modal-body">
+                        <form :action="redirect_pass" method="POST">
+                            <input type="hidden" name="_method" value="post">
+                            <input type="hidden" name="_token" :value="csrf">
+                            <div class="form-group mt-5 mb-3 col-8 mx-auto">
+                                <input type="date" class="form-control" name="schedule_date" value="" autocomplete="schedule_date" required>
+                            </div>
+                            <div class="form-group my-3 col-8 mx-auto">
+                                <textarea class="form-control" name='detail' placeholder="○○会社説明会" rows="3" required></textarea>
+                            </div>
+                            <div class="form-group my-3 col-8 mx-auto">
+                                <button type="submit" id="add-btn">
+                                    追加する
+                                </button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-                <div class="container" id="modal-body">
-                    <form :action="redirect_pass" method="POST">
-                        <input type="hidden" name="_method" value="post">
-                        <input type="hidden" name="_token" :value="csrf">
-                        <div class="form-group mt-5 mb-3 col-8 mx-auto">
-                            <input type="date" class="form-control" name="schedule_date" value="" autocomplete="schedule_date" required>
-                        </div>
-                        <div class="form-group my-3 col-8 mx-auto">
-                            <textarea class="form-control" name='detail' placeholder="○○会社説明会" rows="3" required></textarea>
-                        </div>
-                        <div class="form-group my-3 col-8 mx-auto">
-                            <button type="submit" id="add-btn">
-                                追加する
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </transition>
+            </transition>
+        </div>
     </div>
 </template>
 
 <script>
 export default {
+    data(){
+        return{
+            is_add_modal: false,
+        }
+    },
     methods: {
+        showModal(){
+            this.is_add_modal = true;
+        },
         exitAddModal(){
-            // 親コンポーネントのis_add_modalにfalseを渡す
-            this.$emit('exitAddModal', false);
+            this.is_add_modal = false;
         }
     },
     props:['csrf', 'redirect_pass'],

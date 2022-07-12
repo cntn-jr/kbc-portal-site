@@ -101,7 +101,7 @@ class AnnouncementController extends Controller
         $announcement->title = $request->title;
         $announcement->content = $request->content;
         $announcement->save();
-        return redirect()->route('announcement.edit', ['class_id' => $class_id, 'announcement_id' => $announcement_id]);
+        return redirect()->route('announcement.show_at_teacher', $class_id);
     }
 
     public function destroy($class_id, $announcement_id){

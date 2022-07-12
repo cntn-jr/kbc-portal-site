@@ -1,41 +1,44 @@
 <template>
-    <div id="edit-content-modal">
-        <div id="edit-modal-bg" @click="exitEditModal"></div>
-        <transition name="edit-modal">
-            <div id="edit-modal-box" class="card">
-                <div class="edit-modal-header card-header">
-                    予定を編集する
+    <div>
+        <button class="edit-btn" @click="showEdit">編集</button>
+        <div id="edit-content-modal">
+            <div id="edit-modal-bg" @click="exitEditModal" v-show="is_edit"></div>
+            <transition name="edit-modal">
+                <div id="edit-modal-box" class="card" v-show="is_edit">
+                    <div class="edit-modal-header card-header">
+                        予定を編集する
+                    </div>
+                    <div class="edit-modal-body card-body">
+                        <form :action="'/kbc_teacher/class/'+class_id+'/schedule/'+schedule.id+'/update'" method="post">
+                            <input type="hidden" name="_method" value="put">
+                            <input type="hidden" name="_token" :value="csrf">
+                            <div class="form-row">
+                                <div class="form-content">
+                                    <input type="date" name="scheduledDate" :value="schedule.scheduledDate" required>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-content">
+                                    <textarea name='detail' placeholder="予定内容" rows="3" :value="schedule.detail" required></textarea>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-btn">
+                                    <button type="submit">
+                                        変更する
+                                    </button>
+                                    <button type="button" @click="exitEditModal">
+                                        戻る
+                                    </button>
+                                    <button type="button" class="btn-show-modal" @click="showDeleteModal">削除</button>
+                                    <delete-modal v-if="is_delete_modal" :csrf="csrf" :delete_url="delete_url" :is_delete_btn="0" v-on:exitDeleteModal="is_delete_modal = $event"></delete-modal>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-                <div class="edit-modal-body card-body">
-                    <form :action="'/kbc_teacher/class/'+class_id+'/schedule/'+schedule.id+'/update'" method="post">
-                        <input type="hidden" name="_method" value="put">
-                        <input type="hidden" name="_token" :value="csrf">
-                        <div class="form-row">
-                            <div class="form-content">
-                                <input type="date" name="scheduledDate" :value="schedule.scheduledDate" required>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-content">
-                                <textarea name='detail' placeholder="予定内容" rows="3" :value="schedule.detail" required></textarea>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-btn">
-                                <button type="submit">
-                                    変更する
-                                </button>
-                                <button type="button" @click="exitEditModal">
-                                    戻る
-                                </button>
-                                <button type="button" class="btn-show-modal" @click="showDeleteModal">削除</button>
-                                <delete-modal v-if="is_delete_modal" :csrf="csrf" :delete_url="delete_url" :is_delete_btn="0" v-on:exitDeleteModal="is_delete_modal = $event"></delete-modal>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </transition>
+            </transition>
+        </div>
     </div>
 </template>
 
@@ -47,14 +50,18 @@ export default {
         return {
             is_delete_modal: false,
             delete_url: '/kbc_teacher/class/' + this.class_id + '/schedule/' + this.schedule.id + '/destroy',
+            is_edit: false,
         }
     },
     methods: {
         exitEditModal(){
-            this.$emit('exitEditModal', false);
+            this.is_edit = false;
         },
         showDeleteModal(){
             this.is_delete_modal = true;
+        },
+        showEdit(){
+            this.is_edit = true;
         }
     },
     props:['csrf', 'schedule', 'class_id']
@@ -62,101 +69,115 @@ export default {
 </script>
 
 <style scoped lang="scss">
-#edit-content-modal{
-    font-size: .9rem;
-    background: #6c5ce7;
-    #edit-modal-bg{
-        z-index: 3;
-        height: 150%;
-        width: 150%;
-        top: 0;
-        left: 0;
-        background: #444;
-        opacity: 0.4;
-        position: fixed;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    #edit-modal-box{
-        border-color: #74b9ff;
-        border-radius: .5rem;
-        position: fixed;
-        z-index: 4;
-        width: 50%;
-        height: 45%;
-        top: 10%;
-        left: 25%;
-        overflow: scroll;
-        .edit-modal-header{
-            width: 100%;
-            background: #74b9ff;
-            font-size: 1.1rem;
-            color: #fff;
-            margin-bottom: 1rem;
+    .edit-btn{
+        border-radius: .4rem;
+        background: #74b9ff;
+        color: #fff;
+        border: 1px solid #ccc;
+        margin-bottom: .3rem;
+        padding: 0 .3rem;
+        font-size: .8rem;
+        vertical-align: middle;
+        &:hover{
+            opacity: .7;
         }
-        .edit-modal-body{
-            padding: .5rem;
-            .form-row{
-                width: 90%;
-                margin: auto;
-                .form-content{
-                    width: 80%;
-                    margin: 1rem auto;
-                    input, textarea{
-                        width: 100%;
-                        border: 1px solid #444;
-                        outline: none;
-                        border-radius: .2rem;
-                        color: #444;
-                        padding: .2rem;
-                    }
-                }
-                .form-btn{
-                    display: flex;
-                    width: 80%;
-                    margin: 1rem auto 2rem;
-                    text-align: right;
-                    button{
-                        border-radius: .4rem;
-                        background: #74b9ff;
-                        padding: .2rem .5rem;
-                        color: #fff;
-                        border: none;
-                        margin: 0 .5rem;
-                        &:hover{
-                            opacity: .7;
-                            background: #0984e3;
-                        }
-                    }
-                    .btn-show-modal{
-                        background: #d63031;
-                        &:hover{
-                            background: #ff7675;
-                        }
+    }
 
+    #edit-content-modal{
+        font-size: .9rem;
+        background: #6c5ce7;
+        #edit-modal-bg{
+            z-index: 3;
+            height: 150%;
+            width: 150%;
+            top: 0;
+            left: 0;
+            background: #444;
+            opacity: 0.4;
+            position: fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        #edit-modal-box{
+            border-color: #74b9ff;
+            border-radius: .5rem;
+            position: fixed;
+            z-index: 4;
+            width: 50%;
+            height: 45%;
+            top: 10%;
+            left: 25%;
+            overflow: scroll;
+            .edit-modal-header{
+                width: 100%;
+                background: #74b9ff;
+                font-size: 1.1rem;
+                color: #fff;
+                margin-bottom: 1rem;
+            }
+            .edit-modal-body{
+                padding: .5rem;
+                .form-row{
+                    width: 90%;
+                    margin: auto;
+                    .form-content{
+                        width: 80%;
+                        margin: 1rem auto;
+                        input, textarea{
+                            width: 100%;
+                            border: 1px solid #444;
+                            outline: none;
+                            border-radius: .2rem;
+                            color: #444;
+                            padding: .2rem;
+                        }
+                    }
+                    .form-btn{
+                        display: flex;
+                        width: 80%;
+                        margin: 1rem auto 2rem;
+                        text-align: right;
+                        button{
+                            border-radius: .4rem;
+                            background: #74b9ff;
+                            padding: .2rem .5rem;
+                            color: #fff;
+                            border: none;
+                            margin: 0 .5rem;
+                            &:hover{
+                                opacity: .7;
+                                background: #0984e3;
+                            }
+                        }
+                        .btn-show-modal{
+                            background: #d63031;
+                            &:hover{
+                                background: #ff7675;
+                            }
+
+                        }
                     }
                 }
             }
         }
     }
-}
 
-.edit-modal-enter{
-    opacity: 0;
-    transform: translateY(-20px);
-}
-.edit-modal-leave{
-    opacity: 0;
-}
-.edit-modal-enter-active{
-    transition: opacity 300ms ease-in, transform 300ms ease-in;
-}
-.edit-modal-leave-active{
-    transition: opacity 500ms ease-out, transform 500ms ease-out;
-}
-.edit-modal-leave-to{
-    opacity: 0;
-    transform: scale(1);
-}
+    .edit-modal-enter{
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    .edit-modal-leave{
+        opacity: 0;
+    }
+    .edit-modal-enter-active{
+        transition: opacity 300ms ease-in, transform 300ms ease-in;
+    }
+    .edit-modal-leave-active{
+        transition: opacity 500ms ease-out, transform 500ms ease-out;
+    }
+    .edit-modal-leave-to{
+        opacity: 0;
+        transform: scale(1);
+    }
 </style>
