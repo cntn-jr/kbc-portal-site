@@ -1,6 +1,6 @@
-@extends('layouts.student_base')
+@extends('layouts.student_class')
 
-@section('student_content')
+@section('class_content')
     @foreach($teachers as $teacher_group)
         <div class="d-flex flex-row justify-content-center">
             @foreach($teacher_group as $teacher)

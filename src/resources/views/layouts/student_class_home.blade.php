@@ -21,7 +21,7 @@
             </div>
             <span class="border border-right border-light"></span>
             <div class="col-3 text-center my-3">
-                <a class="text-secondary" href="{{ route('teacher.show_teachers') }}">教師一覧</a>
+                <a class="text-secondary" href="{{ route('teacher.show_teachers', $class->id) }}">教師一覧</a>
             </div>
         </div>
         <div class="col-md-11">

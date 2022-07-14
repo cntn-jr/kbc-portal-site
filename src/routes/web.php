@@ -144,12 +144,12 @@ Route::prefix('/kbc_student/class/{class_id}')->middleware('auth:student')->grou
     Route::get('/students', [StudentController::class, 'show_students_in_class'])->name('student.show_students');
     Route::get('/announcement', [AnnouncementController::class, 'show_announcements_at_student'])->name('announcement.show_at_student');
     Route::get('/announcement/{announcement_id}', [AnnouncementController::class, 'show_announcement'])->name('announcement.show_detail');
+    Route::get('/teachers', [TeacherController::class, 'show_teachers'])->name('teacher.show_teachers');
 });
 
 Route::prefix('/kbc_student')->middleware('auth:student')->group(function(){
     Route::get('/home', [HomeController::class, 'student'])->name('student.home');
     Route::get('/select_semester', [SemesterController::class, 'select_at_student'])->name('semester.select_at_student');
-    Route::get('/teachers', [TeacherController::class, 'show_teachers'])->name('teacher.show_teachers');
     Route::get('/profile', [StudentController::class, 'edit_profile'])->name('student.edit_profile');
     Route::put('/profile/update', [StudentController::class, 'update_profile'])->name('student.update_profile');
     Route::get('/password', [StudentController::class, 'edit_password'])->name('student.edit_password');
