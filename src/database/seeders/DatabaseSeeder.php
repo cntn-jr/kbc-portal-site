@@ -15,15 +15,23 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             AdministratorSeeder::class,
-            TeacherSeeder::class,
-            StudentSeeder::class,
+            GakuensaiTeacherSeeder::class,
+            // TeacherSeeder::class,
+            GakuensaiStudentSeeder::class,
+            // StudentSeeder::class,
             SemesterSeeder::class,
-            ClassesSeeder::class,
-            LessonSeeder::class,
-            CurriculumSeeder::class,
-            AnnouncementSeeder::class,
-            BelongClassSeeder::class,
-            ScheduleSeeder::class,
+            GakuensaiClassSeeder::class,
+            // ClassesSeeder::class,
+            GakuensaiLessonSeeder::class,
+            // LessonSeeder::class,
+            GakuensaiCurriculumSeeder::class,
+            // CurriculumSeeder::class,
+            GakuensaiAnnouncementSeeder::class,
+            // AnnouncementSeeder::class,
+            GakuensaiBelongClassSeeder::class,
+            // BelongClassSeeder::class,
+            GakuensaiScheduleSeeder::class,
+            // ScheduleSeeder::class,
         ]);
     }
 }
