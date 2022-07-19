@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Classes;
+use App\Models\Semester;
 use App\Models\Teacher;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -96,12 +98,17 @@ class TeacherController extends Controller
 
 
     //生徒画面のコントローラー
-    public function show_teachers(){
+    public function show_teachers($class_id){
+        $class = Classes::find($class_id);
+        $semester_model = new Semester();
+        $semester_name = $semester_model->getSentenceOnClass($class_id);
         $teacher_model = new Teacher();
         $teachers = $teacher_model->getListOfTeachers();
         $teachers = arrayChunkObject($teachers, 3);
         return view('student.show_teachers')->with([
             'teachers' => $teachers,
+            'semester_name' => $semester_name,
+            'class' => $class,
         ]);
     }
 
