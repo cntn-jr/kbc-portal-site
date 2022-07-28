@@ -78,6 +78,8 @@ class ClassesController extends Controller
         $schedules = $schedule_model->getSchedule($class_id);
         $semester_model = new Semester();
         $semester_name = $semester_model->getSentenceOnClass($class_id);
+        $lesson_model = new Lesson();
+        $class_lessons = $lesson_model->getLessons($class_id);
         // 担任教師以外は別の画面を表示する
         if($class->isResponsibleClass($login_user->id)){
             return view('teacher.show_class')->with([
@@ -87,6 +89,7 @@ class ClassesController extends Controller
                 'semester_name' => $semester_name,
                 'announcements' => $announcements,
                 'schedules' => $schedules,
+                'class_lessons' => $class_lessons,
             ]);
         }else{
             return view('teacher.common.show_class')->with([

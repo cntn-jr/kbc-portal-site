@@ -39,6 +39,8 @@ class CurriculumController extends Controller
             'period' => $request->period,
             'class_id' => $class_id,
         ]);
+        if($request->redirectFrom == 'show_class')
+            return redirect()->route('class.show_at_teacher', $class_id);
         return redirect()->route('class.edit', $class_id);
     }
 
@@ -55,11 +57,13 @@ class CurriculumController extends Controller
         $curriculum = Curriculum::find($curriculum_id);
         $curriculum->lesson_id = $request->lesson_id;
         $curriculum->save();
+        if($request->redirectFrom == 'show_class')
+            return redirect()->route('class.show_at_teacher', $class_id);
         return redirect()->route('class.edit', $class_id);
     }
 
     //１コマ削除処理
-    public function destroy($class_id, $curriculum_id){
+    public function destroy($class_id, $curriculum_id, Request $request){
         $login_user = Auth::user();
         $class = Classes::find($class_id);
         // 担任以外の教師はホームにリダイレクトさせる
@@ -67,6 +71,8 @@ class CurriculumController extends Controller
             return redirect()->route('teacher.home');
         $curriculum = Curriculum::find($curriculum_id);
         $curriculum->delete();
+        if($request->redirectFrom == 'show_class')
+            return redirect()->route('class.show_at_teacher', $class_id);
         return redirect()->route('class.edit', $class_id);
     }
 }

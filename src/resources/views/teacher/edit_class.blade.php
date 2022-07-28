@@ -67,11 +67,12 @@
                                         ]) }}" method="post">
                                         @method('put')
                                         @csrf
+                                        <input type="hidden" name="redirectFrom" value="edit_class">
                                         <h5 class="card-title mt-2 text-center" style="height: 2rem;">
                                             授業変更
                                         </h5>
                                         <div class="card-text" style="height: 3rem;">
-                                            <x-lessons-selectbox :lessons="$class_lessons" :selectedLesson="$lesson" :isUpdate="true" />
+                                            <lesson-selectbox :lessons="{{ json_encode($class_lessons) }}" :selected_lesson="{{ json_encode($lesson) }}" ></lessons-selectbox>
                                         </div>
                                         <div class="form-group" style="height: 2rem;">
                                             <button type="submit" class="btn btn-secondary btn-sm">変更</button>
@@ -83,6 +84,7 @@
                                     ]) }}" method="POST">
                                         @method('delete')
                                         @csrf
+                                        <input type="hidden" name="redirectFrom" value="edit_class">
                                         <div class="form-group mt-2" style="height: 2rem;">
                                             <button type="submit" class="btn btn-light btn-sm">空きコマにする</button>
                                         </div>
@@ -99,6 +101,7 @@
                                         </div>
                                         <input type="hidden" name="dayOfTheWeek" value="{{ $dayOfTheWeek }}">
                                         <input type="hidden" name="period" value="{{ $loop->index+1 }}">
+                                        <input type="hidden" name="redirectFrom" value="edit_class">
                                         <div class="form-group" style="height: 2rem;">
                                             <button type="submit" class="btn btn-outline-secondary btn-sm">追加</button>
                                         </div>

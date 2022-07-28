@@ -23,6 +23,10 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 Vue.component('calendar-component', require('./components/CalendarComponent.vue').default);
 Vue.component('last-announcement', require('./components/Announcement/LastAnnouncements.vue').default);
 Vue.component('announcements-component', require('./components/Announcement/AnnounecementsComponent.vue').default);
+Vue.component('curriculum-component', require('./components/Curriculum/CurriculumComponent.vue').default);
+Vue.component('curriculum-edit', require('./components/CurriculumEdit.vue').default);
+Vue.component('curriculum-create', require('./components/CurriculumCreate.vue').default);
+Vue.component('lesson-selectbox', require('./components/LessonsSelectbox.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
