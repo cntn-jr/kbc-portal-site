@@ -24,8 +24,6 @@ Vue.component('calendar-component', require('./components/CalendarComponent.vue'
 Vue.component('last-announcement', require('./components/Announcement/LastAnnouncements.vue').default);
 Vue.component('announcements-component', require('./components/Announcement/AnnounecementsComponent.vue').default);
 Vue.component('curriculum-component', require('./components/Curriculum/CurriculumComponent.vue').default);
-Vue.component('curriculum-edit', require('./components/CurriculumEdit.vue').default);
-Vue.component('curriculum-create', require('./components/CurriculumCreate.vue').default);
 Vue.component('lesson-selectbox', require('./components/LessonsSelectbox.vue').default);
 
 /**
@@ -34,6 +32,12 @@ Vue.component('lesson-selectbox', require('./components/LessonsSelectbox.vue').d
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+ import Vuetify from 'vuetify';
+ Vue.use(Vuetify);
+
 const app = new Vue({
     el: '#app',
+    vuetify: new Vuetify({
+        iconfont: 'mdi', //追記
+    }),
 });

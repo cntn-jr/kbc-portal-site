@@ -4,11 +4,15 @@
             <div class="card mt-3">
                 <div class="card-header">
                     <div class="row">
-                        <button class="page-link text-reset ml-5 col-1" @click="reduceMonth">&laquo;</button>
+                        <button class="text-reset ml-5 col-1" @click="reduceMonth">
+                            <v-icon>mdi-arrow-left-circle</v-icon>
+                        </button>
                         <div class="col text-center mt-2">
                             {{current.year()}}年 {{current.month() + 1}}月 の {{get_type}}
                         </div>
-                        <button class="page-link text-reset mr-5 col-1" @click="addMonth">&raquo;</button>
+                        <button class="text-reset mr-5 col-1" @click="addMonth">
+                            <v-icon>mdi-arrow-right-circle</v-icon>
+                        </button>
                     </div>
                 </div>
 

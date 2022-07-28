@@ -1,6 +1,8 @@
 <template>
     <div>
-        <button class="edit-btn" @click="showEdit">編集</button>
+        <button class="edit-btn" @click="showEdit">
+            <v-icon>mdi-calendar-edit</v-icon>
+        </button>
         <div id="edit-content-modal">
             <div id="edit-modal-bg" @click="exitEditModal" v-show="is_edit"></div>
             <transition name="edit-modal">

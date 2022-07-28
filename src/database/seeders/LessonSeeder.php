@@ -17,14 +17,14 @@ class LessonSeeder extends Seeder
         DB::table('lessons')->insert([
             'id' => 1,
             'name' => '機械学習',
-            'outline'=> '',
+            'outline'=> '主にPythonを使用して、AIや機械学習について学習します。',
             'class_id' => '1',
             'teacher_id' => '3'
         ]);
         DB::table('lessons')->insert([
             'id' => 2,
             'name' => 'システム開発演習',
-            'outline'=> '',
+            'outline'=> 'データベースの復習やそれを用いてWebアプリを作成し、知識を深めます。',
             'class_id' => '1',
             'teacher_id' => '4'
         ]);

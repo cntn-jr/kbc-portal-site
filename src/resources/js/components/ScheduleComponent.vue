@@ -14,8 +14,10 @@
                     <div class="card-body">
                         <div class="schedule-date-modal">
                             <div v-for="(schedule, index) in getSchedule.schedules" :key="index" class="one-schedule d-flex flex-row">
-                                <edit-schedule :csrf="csrf" v-if="is_teacher" :schedule="schedule" :class_id="class_id"></edit-schedule>
-                                <span class="content mx-auto">{{schedule.detail}}</span>
+                                    <edit-schedule :csrf="csrf" v-if="is_teacher" :schedule="schedule" :class_id="class_id" />
+                                <div class="content mx-auto">
+                                    {{schedule.detail}}
+                                </div>
                             </div>
                         </div>
                     </div>

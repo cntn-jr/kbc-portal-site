@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import LessonsSelectbox from './LessonsSelectbox.vue';
+import LessonsSelectbox from '../LessonsSelectbox.vue';
 
 export default {
     components: { LessonsSelectbox },
